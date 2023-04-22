@@ -1,34 +1,24 @@
 package com.axondragonscale.npinner.ui.theme
 
 import androidx.compose.material3.Typography
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 
-// Set of Material typography styles to start with
-val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
-    ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
-    )
-    */
+val DefaultTypography = Typography()
+
+val NPinnerTypography = DefaultTypography.copy(
+    displayLarge = DefaultTypography.displayLarge.copy(fontFamily = FontFamily.Monospace),
+    displayMedium = DefaultTypography.displayMedium.copy(fontFamily = FontFamily.Monospace),
+    displaySmall = DefaultTypography.displaySmall.copy(fontFamily = FontFamily.Monospace),
+    headlineLarge = DefaultTypography.headlineLarge.copy(fontFamily = FontFamily.Monospace),
+    headlineMedium = DefaultTypography.headlineMedium.copy(fontFamily = FontFamily.Monospace),
+    headlineSmall = DefaultTypography.headlineSmall.copy(fontFamily = FontFamily.Monospace),
+    titleLarge = DefaultTypography.titleLarge.copy(fontFamily = FontFamily.Monospace),
+    titleMedium = DefaultTypography.titleMedium.copy(fontFamily = FontFamily.Monospace),
+    titleSmall = DefaultTypography.titleSmall.copy(fontFamily = FontFamily.Monospace),
+    bodyLarge = DefaultTypography.bodyLarge.copy(fontFamily = FontFamily.Monospace),
+    bodyMedium = DefaultTypography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
+    bodySmall = DefaultTypography.bodySmall.copy(fontFamily = FontFamily.Monospace),
+    labelLarge = DefaultTypography.labelLarge.copy(fontFamily = FontFamily.Monospace),
+    labelMedium = DefaultTypography.labelMedium.copy(fontFamily = FontFamily.Monospace),
+    labelSmall = DefaultTypography.labelSmall.copy(fontFamily = FontFamily.Monospace),
 )
