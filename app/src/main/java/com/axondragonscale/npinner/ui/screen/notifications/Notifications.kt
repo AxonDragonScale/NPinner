@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.Info
@@ -11,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.axondragonscale.npinner.ui.common.BottomBar
 import com.axondragonscale.npinner.ui.common.BottomButton
 import com.axondragonscale.npinner.ui.common.IconActionButton
@@ -34,19 +36,21 @@ fun Notifications() {
         BottomBar(
             mainAction = {
                 BottomButton(
+                    modifier = Modifier.weight(1f).padding(horizontal = 8.dp),
                     title = "MAIN ACTION",
-                    onClick = { /*TODO*/ },
-                    modifier = Modifier.weight(1f)
+                    onClick = { /*TODO*/ }
                 )
             },
             leftAction = {
                 IconActionButton(
+                    modifier = Modifier.padding(start = 8.dp),
                     icon = Icons.Outlined.DarkMode,
-                    onClick = { /*TODO*/ }
+                    onClick = { /*TODO*/ },
                 )
             },
             rightAction = {
                 IconActionButton(
+                    modifier = Modifier.padding(end = 8.dp),
                     icon = Icons.Outlined.Info,
                     onClick = { /*TODO*/ }
                 )
