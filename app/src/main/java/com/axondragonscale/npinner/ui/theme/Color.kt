@@ -17,7 +17,7 @@ val Pink40 = Color(0xFF7D5260)
 // Composable Colors
 // -------------------------------------------------------------------------------------------------
 
-val DividerColor: Color
+val Color.Companion.DividerColor: Color
     @Composable
     @ReadOnlyComposable
-    get() = MaterialTheme.colorScheme.background.copy(alpha = 0.15F)
+    get() = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.15F)

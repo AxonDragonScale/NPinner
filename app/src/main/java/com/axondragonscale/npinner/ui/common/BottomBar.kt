@@ -6,10 +6,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
@@ -26,25 +29,24 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.axondragonscale.npinner.ui.theme.Dimen
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 
 /**
  * Created by Ronak Harkhani on 26/04/23
  */
 
-private val BOTTOM_BAR_HEIGHT = 64.dp
-
 @Composable
 fun BottomBar(
     mainAction: @Composable RowScope.() -> Unit,
-    leftAction: @Composable RowScope.() -> Unit = {},
-    rightAction: @Composable RowScope.() -> Unit = {},
+    leftAction: @Composable RowScope.() -> Unit = { Spacer(modifier = Modifier.width(48.dp)) },
+    rightAction: @Composable RowScope.() -> Unit = { Spacer(modifier = Modifier.width(48.dp)) },
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(BOTTOM_BAR_HEIGHT)
+            .height(Dimen.BOTTOM_BAR_HEIGHT)
             .background(MaterialTheme.colorScheme.surface),
         contentAlignment = Alignment.Center
     ) {
@@ -52,12 +54,16 @@ fun BottomBar(
 
         Row(
             modifier = Modifier.fillMaxSize(),
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Spacer(modifier = Modifier.width(16.dp))
             leftAction()
+            Spacer(modifier = Modifier.width(16.dp))
             mainAction()
+            Spacer(modifier = Modifier.width(16.dp))
             rightAction()
+            Spacer(modifier = Modifier.width(16.dp))
         }
     }
 }
@@ -91,7 +97,7 @@ fun IconActionButton(
 ) {
     IconButton(
         onClick = onClick,
-        modifier = modifier.padding(8.dp),
+        modifier = modifier,
     ) {
         Icon(
             imageVector = icon,
@@ -109,27 +115,40 @@ fun BottomBarPreview() {
         BottomBar(
             mainAction = {
                 BottomButton(
-                    modifier = Modifier
-                        .padding(horizontal = 8.dp)
-                        .weight(1f),
+                    modifier = Modifier.weight(1f),
                     title = "MAIN ACTION",
                     onClick = { /*TODO*/ }
                 )
             },
             leftAction = {
                 IconActionButton(
-                    modifier = Modifier.padding(start = 8.dp),
                     icon = Icons.Outlined.DarkMode,
                     onClick = { /*TODO*/ },
                 )
             },
             rightAction = {
                 IconActionButton(
-                    modifier = Modifier.padding(end = 8.dp),
                     icon = Icons.Outlined.Info,
                     onClick = { /*TODO*/ }
                 )
             }
+        )
+    }
+}
+
+@Preview(name = "Light Mode", showBackground = true)
+@Preview(name = "Dark Mode", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun BottomBarMainOnlyPreview() {
+    NPinnerTheme {
+        BottomBar(
+            mainAction = {
+                BottomButton(
+                    modifier = Modifier.weight(1F),
+                    title = "MAIN ACTION",
+                    onClick = { /*TODO*/ }
+                )
+            },
         )
     }
 }

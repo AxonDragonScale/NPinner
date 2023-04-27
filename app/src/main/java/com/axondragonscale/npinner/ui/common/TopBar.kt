@@ -12,15 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.axondragonscale.npinner.ui.theme.DividerColor
+import com.axondragonscale.npinner.ui.theme.Dimen
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 
 /**
  * Created by Ronak Harkhani on 26/04/23
  */
-
-private val TOP_BAR_HEIGHT = 56.dp
 
 @Composable
 fun TopBar(
@@ -30,7 +27,7 @@ fun TopBar(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(TOP_BAR_HEIGHT)
+            .height(Dimen.TOP_BAR_HEIGHT)
             .background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
