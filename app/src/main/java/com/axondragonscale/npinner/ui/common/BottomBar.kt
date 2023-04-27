@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
@@ -18,8 +17,6 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonColors
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,7 +26,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 
 /**
@@ -52,13 +48,7 @@ fun BottomBar(
             .background(MaterialTheme.colorScheme.surface),
         contentAlignment = Alignment.Center
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
-                .align(Alignment.TopCenter)
-                .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.15F))
-        )
+        Divider(modifier = Modifier.align(Alignment.TopCenter))
 
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -119,7 +109,9 @@ fun BottomBarPreview() {
         BottomBar(
             mainAction = {
                 BottomButton(
-                    modifier = Modifier.padding(horizontal = 8.dp).weight(1f),
+                    modifier = Modifier
+                        .padding(horizontal = 8.dp)
+                        .weight(1f),
                     title = "MAIN ACTION",
                     onClick = { /*TODO*/ }
                 )
