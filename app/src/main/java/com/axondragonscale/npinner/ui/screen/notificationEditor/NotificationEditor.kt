@@ -17,6 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.axondragonscale.npinner.ui.Route
 import com.axondragonscale.npinner.ui.common.BottomBar
 import com.axondragonscale.npinner.ui.common.BottomButton
 import com.axondragonscale.npinner.ui.common.Divider
@@ -30,13 +33,16 @@ import com.axondragonscale.npinner.ui.theme.NPinnerTheme
  */
 
 @Composable
-fun NotificationEditor() {
+fun NotificationEditor(
+    navController: NavController,
+    notificationId: String?,
+) {
     Box(modifier = Modifier.fillMaxSize()) {
         TopBar(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .zIndex(1F),
-            title = "Edit" // Or Create TODO
+            title = "Edit" // TODO: Or Create
         )
 
         Column(
@@ -57,18 +63,18 @@ fun NotificationEditor() {
             mainAction = {
                 BottomButton(
                     modifier = Modifier.weight(1f),
-                    title = "SAVE", // Or SAVE AND PIN TODO
+                    title = "SAVE", // TODO: Or SAVE AND PIN
                     onClick = { /*TODO*/ }
                 )
             },
             leftAction = {
                 IconActionButton(
                     icon = Icons.Outlined.ArrowBack,
-                    onClick = { /*TODO*/ },
+                    onClick = { navController.popBackStack() },
                 )
             },
             rightAction = {
-                if (false) { // Show Delete in case of edit TODO
+                if (false) { // TODO: Show Delete in case of edit
                     IconActionButton(
                         icon = Icons.Outlined.Delete,
                         onClick = { /*TODO*/ }
@@ -88,7 +94,10 @@ fun NotificationEditor() {
 fun NotificationEditorPreview() {
     NPinnerTheme {
         Surface {
-            NotificationEditor()
+            NotificationEditor(
+                navController = rememberNavController(),
+                notificationId = null,
+            )
         }
     }
 }

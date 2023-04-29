@@ -17,6 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.axondragonscale.npinner.ui.Route
 import com.axondragonscale.npinner.ui.common.BottomBar
 import com.axondragonscale.npinner.ui.common.BottomButton
 import com.axondragonscale.npinner.ui.common.IconActionButton
@@ -28,7 +31,9 @@ import com.axondragonscale.npinner.ui.theme.NPinnerTheme
  * Created by Ronak Harkhani on 22/04/23
  */
 @Composable
-fun Notifications() {
+fun Notifications(
+    navController: NavController,
+) {
     Box(modifier = Modifier.fillMaxSize()) {
         TopBar(
             modifier = Modifier
@@ -55,8 +60,10 @@ fun Notifications() {
             mainAction = {
                 BottomButton(
                     modifier = Modifier.weight(1f),
-                    title = "MAIN ACTION",
-                    onClick = { /*TODO*/ }
+                    title = "CREATE",
+                    onClick = {
+                        navController.navigate(Route.NOTIFICATION_EDITOR)
+                    }
                 )
             },
             leftAction = {
@@ -81,7 +88,7 @@ fun Notifications() {
 @Composable
 fun NotificationsPreview() {
     NPinnerTheme {
-        Notifications()
+        Notifications(rememberNavController())
     }
 }
 
