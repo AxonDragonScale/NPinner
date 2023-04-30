@@ -7,4 +7,4 @@ import dagger.hilt.android.HiltAndroidApp
  * Created by Ronak Harkhani on 22/04/23
  */
 @HiltAndroidApp
-class NPinnerApplication: Application()
+class NPinnerApplication : Application()

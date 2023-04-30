@@ -5,17 +5,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -33,6 +27,9 @@ import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 
 @Composable
 fun Editor(
+    title: String,
+    description: String,
+    onContentChange: (title: String, description: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -47,10 +44,9 @@ fun Editor(
         Spacer(modifier = Modifier.height(24.dp))
 
         // TODO: Add Auto focus
-        var title by remember { mutableStateOf("") }
         NPinnerTextField(
             value = title,
-            onValueChange = { title = it },
+            onValueChange = { onContentChange(it, description) },
             placeholder = "Title",
             textStyle = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
             maxChars = 72,
@@ -62,10 +58,9 @@ fun Editor(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        var desc by remember { mutableStateOf("") }
         NPinnerTextField(
-            value = desc,
-            onValueChange = { desc = it },
+            value = description,
+            onValueChange = { onContentChange(title, it) },
             placeholder = "Description",
             textStyle = MaterialTheme.typography.bodyLarge,
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -82,7 +77,11 @@ fun Editor(
 fun EditorPreview() {
     NPinnerTheme {
         Surface {
-            Editor()
+            Editor(
+                title = "Title",
+                description = "Description",
+                onContentChange = { _, _ -> }
+            )
         }
     }
 }

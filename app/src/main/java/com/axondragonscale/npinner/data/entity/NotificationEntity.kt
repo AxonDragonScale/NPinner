@@ -15,7 +15,7 @@ import com.axondragonscale.npinner.model.Schedule
 data class NotificationEntity(
     @PrimaryKey val id: String,
     val title: String,
-    val content: String? = null,
+    val description: String,
     val isPinned: Boolean = true,
     @Embedded val schedule: Schedule? = null,
     val createdAt: Long,

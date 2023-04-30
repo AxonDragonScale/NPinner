@@ -36,6 +36,7 @@ fun SegmentedToggleButton(
     items: List<String>,
     onItemSelected: (selectedItemIndex: Int) -> Unit,
     defaultSelectedItemIndex: Int = 0,
+    enabled: Boolean = true,
     cornerRadius: Dp = 2.dp,
     modifier: Modifier = Modifier,
 ) {
@@ -54,6 +55,7 @@ fun SegmentedToggleButton(
                     selectedItemIndex = index
                     onItemSelected(selectedItemIndex)
                 },
+                enabled = enabled,
                 shape = when (index) {
                     // LeftMost Button has rounded corners on the left side
                     0 -> RoundedCornerShape(
@@ -70,7 +72,8 @@ fun SegmentedToggleButton(
                 },
                 border = BorderStroke(
                     width = BORDER_WIDTH,
-                    color = MaterialTheme.colorScheme.primary
+                    color = if (enabled) MaterialTheme.colorScheme.primary
+                            else MaterialTheme.colorScheme.primary.copy(alpha = 0.2F)
                 ),
                 colors = if (selectedItemIndex == index) {
                     ButtonDefaults.outlinedButtonColors(
@@ -102,7 +105,23 @@ fun SegmentedToggleButtonPreview() {
         Surface {
             SegmentedToggleButton(
                 items = listOf("DAY", "WEEK", "MONTH", "YEAR"),
-                onItemSelected = {}
+                onItemSelected = {},
+                enabled = true,
+            )
+        }
+    }
+}
+
+@Preview(name = "Light Mode", showBackground = true)
+@Preview(name = "Dark Mode", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun SegmentedToggleButtonDisabledPreview() {
+    NPinnerTheme {
+        Surface {
+            SegmentedToggleButton(
+                items = listOf("DAY", "WEEK", "MONTH", "YEAR"),
+                onItemSelected = {},
+                enabled = false,
             )
         }
     }

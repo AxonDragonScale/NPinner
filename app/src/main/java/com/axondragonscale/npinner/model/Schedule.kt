@@ -12,5 +12,18 @@ import java.time.LocalTime
 data class Schedule(
     val date: LocalDate,
     val time: LocalTime,
-    val type: ScheduleType,
-)
+    val type: ScheduleType?,
+) {
+    companion object {
+
+        /**
+         * Creates default Schedule. Scheduled 10 min from now and repeats every day.
+         */
+        fun newInstance() = Schedule(
+            date = LocalDate.now(),
+            time = LocalTime.now().plusMinutes(10),
+            type = ScheduleType.DAY,
+        )
+
+    }
+}

@@ -12,14 +12,17 @@ import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.axondragonscale.npinner.ui.Route
+import com.axondragonscale.npinner.model.NPinnerNotification
+import com.axondragonscale.npinner.model.Schedule
 import com.axondragonscale.npinner.ui.common.BottomBar
 import com.axondragonscale.npinner.ui.common.BottomButton
 import com.axondragonscale.npinner.ui.common.Divider
@@ -35,14 +38,43 @@ import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 @Composable
 fun NotificationEditor(
     navController: NavController,
-    notificationId: String?,
+    viewModel: NotificationEditorViewModel = hiltViewModel(),
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    NotificationEditor(
+        uiState = uiState,
+        onBackClick = { navController.popBackStack() },
+        onSaveClick = {
+            viewModel.onSaveClick()
+            navController.popBackStack()
+        },
+        onDeleteClick = {
+            viewModel.onDeleteClick()
+            navController.popBackStack()
+        },
+        onContentChange = viewModel::onContentChange,
+        onScheduleChange = viewModel::onScheduleChange,
+    )
+}
+
+@Composable
+fun NotificationEditor(
+    uiState: NotificationEditorUiState,
+    onBackClick: () -> Unit,
+    onSaveClick: () -> Unit,
+    onDeleteClick: () -> Unit,
+    onContentChange: (String, String) -> Unit,
+    onScheduleChange: (Schedule?) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    if (uiState !is NotificationEditorUiState.Success) return
+
+    Box(modifier = modifier.fillMaxSize()) {
         TopBar(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .zIndex(1F),
-            title = "Edit" // TODO: Or Create
+            title = uiState.topBarTitle
         )
 
         Column(
@@ -51,9 +83,18 @@ fun NotificationEditor(
                 bottom = Dimen.BOTTOM_BAR_HEIGHT
             )
         ) {
-            Editor()
+            Editor(
+                title = uiState.notification.title,
+                description = uiState.notification.description,
+                onContentChange = onContentChange,
+            )
+
             Divider()
-            Scheduler()
+
+            Scheduler(
+                schedule = uiState.notification.schedule,
+                onScheduleChange = onScheduleChange,
+            )
         }
 
         BottomBar(
@@ -63,21 +104,21 @@ fun NotificationEditor(
             mainAction = {
                 BottomButton(
                     modifier = Modifier.weight(1f),
-                    title = "SAVE", // TODO: Or SAVE AND PIN
-                    onClick = { /*TODO*/ }
+                    title = uiState.bottomButtonText,
+                    onClick = onSaveClick,
                 )
             },
             leftAction = {
                 IconActionButton(
                     icon = Icons.Outlined.ArrowBack,
-                    onClick = { navController.popBackStack() },
+                    onClick = onBackClick,
                 )
             },
             rightAction = {
-                if (false) { // TODO: Show Delete in case of edit
+                if (uiState.showDeleteButton) {
                     IconActionButton(
                         icon = Icons.Outlined.Delete,
-                        onClick = { /*TODO*/ }
+                        onClick = onDeleteClick
                     )
                 } else {
                     Spacer(modifier = Modifier.width(48.dp))
@@ -95,8 +136,15 @@ fun NotificationEditorPreview() {
     NPinnerTheme {
         Surface {
             NotificationEditor(
-                navController = rememberNavController(),
-                notificationId = null,
+                uiState = NotificationEditorUiState.Success(
+                    createNew = true,
+                    notification = NPinnerNotification.newInstance()
+                ),
+                onBackClick = {},
+                onSaveClick = {},
+                onDeleteClick = {},
+                onContentChange = { _, _ -> },
+                onScheduleChange = {}
             )
         }
     }
