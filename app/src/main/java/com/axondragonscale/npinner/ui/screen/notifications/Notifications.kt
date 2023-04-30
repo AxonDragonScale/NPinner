@@ -1,6 +1,7 @@
 package com.axondragonscale.npinner.ui.screen.notifications
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -40,7 +41,8 @@ fun Notifications(
 
     Notifications(
         uiState = uiState,
-        onCreateClick = { navController.navigate(Route.NOTIFICATION_EDITOR) }
+        onCreateClick = { navController.navigate(Route.NOTIFICATION_EDITOR) },
+        onNotificationClick = { navController.navigate("${Route.NOTIFICATION_EDITOR}?${Route.ARG_ID}=$it") }
     )
 }
 
@@ -48,6 +50,7 @@ fun Notifications(
 fun Notifications(
     uiState: NotificationsUiState,
     onCreateClick: () -> Unit,
+    onNotificationClick: (String) -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         TopBar(
@@ -65,7 +68,12 @@ fun Notifications(
                 )
             ) {
                 items(uiState.notifications) { notification ->
-                    NotificationItem(notification)
+                    NotificationItem(
+                        notification = notification,
+                        modifier = Modifier.clickable {
+                            onNotificationClick(notification.id)
+                        }
+                    )
                 }
             }
         }

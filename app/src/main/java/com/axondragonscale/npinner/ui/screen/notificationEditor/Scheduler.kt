@@ -35,6 +35,7 @@ import com.axondragonscale.npinner.model.ScheduleType
 import com.axondragonscale.npinner.ui.common.PickerButton
 import com.axondragonscale.npinner.ui.common.SegmentedToggleButton
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
+import com.axondragonscale.npinner.util.formatted
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -57,7 +58,10 @@ fun Scheduler(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (schedule != null) {
-                DateTimePicker(schedule)
+                DateTimePicker(
+                    schedule = schedule,
+                    onScheduleChange = onScheduleChange,
+                )
             } else {
                 Text(
                     modifier = Modifier.padding(4.dp),
@@ -129,18 +133,19 @@ fun Scheduler(
 @Composable
 fun DateTimePicker(
     schedule: Schedule,
+    onScheduleChange: (Schedule?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row {
         PickerButton(
-            text = "Apr 28",
+            text = schedule.date.formatted,
             onClick = { /*TODO*/ }
         )
 
         Spacer(modifier = Modifier.width(8.dp))
 
         PickerButton(
-            text = "2:15 am",
+            text = schedule.time.formatted,
             onClick = { /*TODO*/ }
         )
     }

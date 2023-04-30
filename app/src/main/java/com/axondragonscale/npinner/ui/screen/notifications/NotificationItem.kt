@@ -41,6 +41,8 @@ import com.axondragonscale.npinner.model.ScheduleType
 import com.axondragonscale.npinner.ui.common.Divider
 import com.axondragonscale.npinner.ui.common.IconLabel
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
+import com.axondragonscale.npinner.util.formatted
+import com.axondragonscale.npinner.util.relativeTimeSpan
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -60,7 +62,7 @@ fun NotificationItem(
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp, vertical = 16.dp)
         ) {
-            NotificationItemHeader()
+            NotificationItemHeader(relativeTimeSpan = notification.updatedAt.relativeTimeSpan)
 
             Text(
                 modifier = Modifier.padding(vertical = 8.dp),
@@ -118,6 +120,7 @@ fun NotificationItem(
 
 @Composable
 fun NotificationItemHeader(
+    relativeTimeSpan: String,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -139,7 +142,7 @@ fun NotificationItemHeader(
         )
 
         Text(
-            text = "4M AGO",
+            text = relativeTimeSpan,
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onBackground
         )
@@ -172,7 +175,7 @@ fun ScheduleButton(
 
         Text(
             modifier = Modifier.padding(start = 8.dp),
-            text = "${schedule.date.toString()} - ${schedule.time.toString()}", // TODO: date and time string formatting
+            text = "${schedule.date.formatted} - ${schedule.time.formatted}",
             style = MaterialTheme.typography.labelSmall,
             color = if (enabled) tint else disabledTint,
             fontWeight = FontWeight.Bold,
