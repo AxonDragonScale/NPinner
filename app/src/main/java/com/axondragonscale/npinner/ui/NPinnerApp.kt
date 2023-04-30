@@ -15,11 +15,14 @@ import com.axondragonscale.npinner.ui.screen.notifications.Notifications
 
 @Composable
 fun NPinnerApp() {
+    // TODO: Notification Permission Check and Blocker
+
     val navController = rememberNavController()
     NavHost(
         navController = navController,
         startDestination = Route.NOTIFICATIONS
     ) {
+        // TODO: Improve Navigation. See NowInAndroid for reference.
 
         composable(route = Route.NOTIFICATIONS) {
             Notifications(navController = navController)

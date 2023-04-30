@@ -48,11 +48,23 @@ class NotificationEditorViewModel @Inject constructor(
     }
 
     fun onSaveClick() = viewModelScope.launch {
-        repository.upsert(notificationFlow.value)
+        var notification = notificationFlow.value
+        if (createNew) {
+            notification = notification.copy(
+                isPinned = notification.schedule == null,
+                createdAt = System.currentTimeMillis(),
+            )
+        }
+        repository.upsert(notification)
+
+        if (createNew) {
+            // TODO: Pin Notification if isPinned
+            // TODO: Schedule Notification otherwise
+        }
     }
 
     fun onDeleteClick() = viewModelScope.launch {
-        repository.upsert(notificationFlow.value)
+        repository.delete(notificationFlow.value)
     }
 
     private fun notificationEditorUiState(): Flow<NotificationEditorUiState> =
