@@ -13,12 +13,12 @@ composeCompiler = "1.4.3"
 
 # Dependency Versions
 activityCompose = "1.7.1"
+androidxLifecycle = "2.6.1"
 composeBom = "2023.04.01"
 coreKtx = "1.10.0"
 hilt = "2.45"
 hiltNavigationCompose = "1.1.0-alpha01"
 junit = "4.13.2"
-androidxLifecycle = "2.6.1"
 room = "2.5.1"
 
 [libraries]
