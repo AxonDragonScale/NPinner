@@ -6,16 +6,23 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.axondragonscale.npinner.core.NPinnerNotificationMonitor
 import com.axondragonscale.npinner.ui.NPinnerApp
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class NPinnerActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var notificationMonitor: NPinnerNotificationMonitor
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -28,7 +35,12 @@ class NPinnerActivity : ComponentActivity() {
                 }
             }
         }
+
+        GlobalScope.launch {
+            notificationMonitor.ensurePinnedNotificationVisibility()
+        }
     }
+
 }
 
 @Preview(showBackground = true)
