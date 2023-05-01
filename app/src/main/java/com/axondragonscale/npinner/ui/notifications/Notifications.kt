@@ -42,7 +42,8 @@ fun Notifications(
     Notifications(
         uiState = uiState,
         onCreateClick = { navController.navigateToNotificationEditor() },
-        onNotificationClick = { navController.navigateToNotificationEditor(it) }
+        onNotificationClick = { navController.navigateToNotificationEditor(it) },
+        onPinClick = viewModel::onPinClick
     )
 }
 
@@ -51,6 +52,7 @@ fun Notifications(
     uiState: NotificationsUiState,
     onCreateClick: () -> Unit,
     onNotificationClick: (String) -> Unit,
+    onPinClick: (String, Boolean) -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         TopBar(
@@ -69,10 +71,14 @@ fun Notifications(
             ) {
                 items(uiState.notifications) { notification ->
                     NotificationItem(
-                        notification = notification,
                         modifier = Modifier.clickable {
                             onNotificationClick(notification.id)
-                        }
+                        },
+                        notification = notification,
+                        onPinClick = {
+                            println("zeref - onPinClick $it")
+                            onPinClick(notification.id, it)
+                                     },
                     )
                 }
             }

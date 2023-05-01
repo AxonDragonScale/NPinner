@@ -49,10 +49,10 @@ interface NotificationDao {
     @Query(
         """
         UPDATE notifications
-        set isPinned = :isPinned
+        set isPinned = :isPinned, updatedAt = :updatedAt
         WHERE id = :id
         """
     )
-    suspend fun updatePinStatus(id: String, isPinned: Boolean)
+    suspend fun updatePinStatus(id: String, isPinned: Boolean, updatedAt: Long)
 
 }
