@@ -64,12 +64,14 @@ dependencies {
 
     implementation(libs.bundles.lifecycle)
 
+    implementation(libs.work.runtime)
+
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
     debugImplementation(libs.bundles.composeDebug)
 
     implementation(libs.bundles.hilt)
-    kapt(libs.hilt.android.compiler)
+    kapt(libs.bundles.hiltKapt)
 
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)

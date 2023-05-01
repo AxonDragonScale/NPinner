@@ -17,9 +17,11 @@ androidxLifecycle = "2.6.1"
 composeBom = "2023.04.01"
 coreKtx = "1.10.0"
 hilt = "2.45"
+hiltWork = "1.0.0"
 hiltNavigationCompose = "1.1.0-alpha01"
 junit = "4.13.2"
 room = "2.5.1"
+work = "2.8.1"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -29,6 +31,8 @@ lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-com
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWork" }
+hilt-work-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltWork" }
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
@@ -41,6 +45,7 @@ junit = { module = "junit:junit", version.ref = "junit" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -52,6 +57,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 [bundles]
 compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-material-icons-extended"]
 composeDebug = ["compose-ui-tooling", "compose-ui-test-manifest"]
-hilt = ["hilt-android", "hilt-navigation-compose"]
+hilt = ["hilt-android", "hilt-navigation-compose", "hilt-work"]
+hiltKapt = ["hilt-android-compiler", "hilt-work-compiler"]
 lifecycle = ["lifecycle-runtime-ktx", "lifecycle-runtime-compose"]
 room = ["room-runtime", "room-ktx"]

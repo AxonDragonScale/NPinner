@@ -26,4 +26,6 @@ data class Schedule(
         )
 
     }
+
+    fun asLocalDateTime() = date.atTime(time)
 }
