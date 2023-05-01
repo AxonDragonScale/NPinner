@@ -7,7 +7,7 @@ import com.axondragonscale.npinner.core.NPinnerNotificationManager
 import com.axondragonscale.npinner.model.NPinnerNotification
 import com.axondragonscale.npinner.model.Schedule
 import com.axondragonscale.npinner.repository.NotificationRepository
-import com.axondragonscale.npinner.ui.Route
+import com.axondragonscale.npinner.ui.Destination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +30,7 @@ class NotificationEditorViewModel @Inject constructor(
     private val notificationManager: NPinnerNotificationManager,
 ) : ViewModel() {
 
-    private val id = savedStateHandle.get<String>(Route.ARG_ID)
+    private val id = savedStateHandle.get<String>(Destination.NotificationEditor.argId)
     private val createNew = id == null
     private val notificationFlow = MutableStateFlow(getNotification(id))
 

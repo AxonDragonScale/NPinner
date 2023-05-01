@@ -4,8 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.axondragonscale.npinner.NPinnerConstants
-import com.axondragonscale.npinner.ui.Route
+import com.axondragonscale.npinner.ui.Destination
 import com.axondragonscale.npinner.ui.notifications.Notifications
 
 /**
@@ -14,13 +13,13 @@ import com.axondragonscale.npinner.ui.notifications.Notifications
 
 fun NavGraphBuilder.notificationsGraph(navController: NavController) {
     composable(
-        route = Route.NOTIFICATIONS,
-        deepLinks = listOf(NavDeepLink(NPinnerConstants.DeepLink.NOTIFICTIONS))
+        route = Destination.Notifications.setupRoute,
+        deepLinks = listOf(NavDeepLink(Destination.Notifications.deepLink))
     ) {
         Notifications(navController = navController)
     }
 }
 
 fun NavController.navigateToNotifications() {
-    navigate(route = Route.NOTIFICATIONS)
+    navigate(route = Destination.Notifications.route)
 }
