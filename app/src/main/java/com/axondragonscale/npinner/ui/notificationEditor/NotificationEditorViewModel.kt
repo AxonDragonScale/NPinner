@@ -1,4 +1,4 @@
-package com.axondragonscale.npinner.ui.screen.notificationEditor
+package com.axondragonscale.npinner.ui.notificationEditor
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
