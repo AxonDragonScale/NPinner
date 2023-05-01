@@ -40,12 +40,14 @@ class NPinnerNotificationManager @Inject constructor(
         notificationManager.notify(notification.id.hashCode(), systemNotification)
     }
 
-    fun dismissNotification(notification: NPinnerNotification) {
-        notificationManager.cancel(notification.id.hashCode())
+    fun dismissNotification(id: String) {
+        notificationManager.cancel(id.hashCode())
     }
 
     private fun NPinnerNotification.toSystemNotification(): Notification {
         val contentIntent = IntentProvider.getNotificationEditorPendingIntent(context, id)
+        val unpinIntent = IntentProvider.getUnpinPendingIntent(context, id)
+        val deleteIntent = IntentProvider.getDeletePendingIntent(context, id)
 
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_app_icon)
@@ -53,6 +55,8 @@ class NPinnerNotificationManager @Inject constructor(
             .setContentText(description)
             .setStyle(BigTextStyle().bigText(description))
             .setContentIntent(contentIntent)
+            .addAction(R.drawable.ic_pin, "Unpin", unpinIntent)
+            .addAction(android.R.drawable.ic_menu_delete, "Delete", deleteIntent)
             .setOngoing(true)
             .build()
     }

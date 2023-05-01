@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import com.axondragonscale.npinner.data.entity.NotificationEntity
-import com.axondragonscale.npinner.model.NPinnerNotification
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -46,5 +45,14 @@ interface NotificationDao {
         """
     )
     suspend fun getNotification(id: String): NotificationEntity
+
+    @Query(
+        """
+        UPDATE notifications
+        set isPinned = :isPinned
+        WHERE id = :id
+        """
+    )
+    suspend fun updatePinStatus(id: String, isPinned: Boolean)
 
 }
