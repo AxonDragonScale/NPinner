@@ -7,7 +7,9 @@ enum class ScheduleType {
     DAY, WEEK, MONTH;
 
     companion object {
-        private val values = values()
+        private val values by lazy { values() }
+
+        val stringValues by lazy { values.map { it.name } }
 
         fun fromOrdinal(ordinal: Int) = values[ordinal]
     }
