@@ -106,6 +106,7 @@ fun NotificationEditor(
                     modifier = Modifier.weight(1f),
                     title = uiState.bottomButtonText,
                     onClick = onSaveClick,
+                    enabled = uiState.bottomButtonEnabled,
                 )
             },
             leftAction = {

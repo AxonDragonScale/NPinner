@@ -20,6 +20,9 @@ sealed interface NotificationEditorUiState {
         val bottomButtonText: String
             get() = if (createNew) "SAVE AND PIN" else "SAVE"
 
+        val bottomButtonEnabled: Boolean
+            get() = notification.title.isNotBlank()
+
         val showDeleteButton = !createNew
 
     }
