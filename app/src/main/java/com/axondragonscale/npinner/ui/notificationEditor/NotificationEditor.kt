@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Delete
@@ -78,23 +80,33 @@ fun NotificationEditor(
         )
 
         Column(
-            modifier = Modifier.padding(
-                top = Dimen.TOP_BAR_HEIGHT,
-                bottom = Dimen.BOTTOM_BAR_HEIGHT
-            )
+            modifier = Modifier
+                .padding(
+                    top = Dimen.TOP_BAR_HEIGHT,
+                    bottom = Dimen.BOTTOM_BAR_HEIGHT
+                )
         ) {
-            Editor(
-                title = uiState.notification.title,
-                description = uiState.notification.description,
-                onContentChange = onContentChange,
-            )
+            // This nested column is to make the inner content scrollable using verticalScroll and
+            // weight modifiers when the keyboard pushes the bottom bar up.
+            // TODO: Check if we can make the topmost box a Column to avoid the unnecessary column
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .weight(1F, fill = false)
+            ) {
+                Editor(
+                    title = uiState.notification.title,
+                    description = uiState.notification.description,
+                    onContentChange = onContentChange,
+                )
 
-            Divider()
+                Divider()
 
-            Scheduler(
-                schedule = uiState.notification.schedule,
-                onScheduleChange = onScheduleChange,
-            )
+                Scheduler(
+                    schedule = uiState.notification.schedule,
+                    onScheduleChange = onScheduleChange,
+                )
+            }
         }
 
         BottomBar(
