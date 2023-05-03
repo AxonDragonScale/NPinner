@@ -12,10 +12,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NotificationDao {
-
+    
     @Upsert
     suspend fun upsert(notifications: NotificationEntity)
-
+    
     @Query(
         """
         SELECT *
@@ -25,7 +25,7 @@ interface NotificationDao {
         """
     )
     fun getNotifications(): Flow<List<NotificationEntity>>
-
+    
     @Query(
         """
         SELECT *
@@ -35,7 +35,7 @@ interface NotificationDao {
         """
     )
     suspend fun getPinnedNotifications(): List<NotificationEntity>
-
+    
     @Query(
         """
         SELECT *
@@ -45,7 +45,7 @@ interface NotificationDao {
         """
     )
     suspend fun getNotification(id: String): NotificationEntity
-
+    
     @Query(
         """
         UPDATE notifications
@@ -54,5 +54,5 @@ interface NotificationDao {
         """
     )
     suspend fun updatePinStatus(id: String, isPinned: Boolean, updatedAt: Long)
-
+    
 }

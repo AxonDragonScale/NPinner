@@ -25,26 +25,31 @@ class NotificationsViewModel @Inject constructor(
     private val notificationManager: NPinnerNotificationManager,
     private val notificationScheduler: NPinnerNotificationScheduler,
 ) : ViewModel() {
-
+    
     val uiState: StateFlow<NotificationsUiState> =
         notificationsUiState().stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = NotificationsUiState.Loading
         )
-
+    
     fun onPinClick(notificationId: String, isPinned: Boolean) = viewModelScope.launch {
         repository.updatePinStatus(notificationId, isPinned)
         if (isPinned) notificationManager.postNotification(repository.getNotification(notificationId))
         else notificationManager.dismissNotification(notificationId)
     }
-
+    
+    fun onRemoveSchedule(notification: NPinnerNotification) = viewModelScope.launch {
+        repository.upsert(notification.copy(schedule = null))
+        notificationScheduler.cancelScheduledNotification(notification.id)
+    }
+    
     fun onNotificationDelete(notification: NPinnerNotification) = viewModelScope.launch {
         repository.delete(notification)
         notificationManager.dismissNotification(notification.id)
         notificationScheduler.cancelScheduledNotification(notification.id)
     }
-
+    
     private fun notificationsUiState(): Flow<NotificationsUiState> =
         repository.getNotifications()
             .map { notifications ->

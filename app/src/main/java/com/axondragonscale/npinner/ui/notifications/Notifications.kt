@@ -57,12 +57,13 @@ fun Notifications(
     viewModel: NotificationsViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
+    
     Notifications(
         uiState = uiState,
         onCreateClick = { navController.navigateToNotificationEditor() },
         onNotificationClick = { navController.navigateToNotificationEditor(it) },
         onPinClick = viewModel::onPinClick,
+        onRemoveSchedule = viewModel::onRemoveSchedule,
         onNotificationDelete = viewModel::onNotificationDelete,
     )
 }
@@ -74,6 +75,7 @@ fun Notifications(
     onCreateClick: () -> Unit,
     onNotificationClick: (String) -> Unit,
     onPinClick: (String, Boolean) -> Unit,
+    onRemoveSchedule: (NPinnerNotification) -> Unit,
     onNotificationDelete: (NPinnerNotification) -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
@@ -83,7 +85,7 @@ fun Notifications(
                 .zIndex(1F),
             title = "Notifications"
         )
-
+        
         if (uiState is NotificationsUiState.Success) {
             if (uiState.notifications.isEmpty()) {
                 NoNotifications()
@@ -100,12 +102,13 @@ fun Notifications(
                             onNotificationClick = onNotificationClick,
                             onPinClick = onPinClick,
                             onNotificationDelete = onNotificationDelete,
+                            onRemoveSchedule = onRemoveSchedule,
                         )
                     }
                 }
             }
         }
-
+        
         BottomBar(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -140,6 +143,7 @@ fun SwipeableNotificationItem(
     onNotificationClick: (String) -> Unit,
     onPinClick: (String, Boolean) -> Unit,
     onNotificationDelete: (NPinnerNotification) -> Unit,
+    onRemoveSchedule: (NPinnerNotification) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val dismissState = rememberDismissState() {
@@ -177,9 +181,10 @@ fun SwipeableNotificationItem(
         },
     ) {
         NotificationItem(
-            modifier = Modifier.clickable { onNotificationClick(notification.id) },
             notification = notification,
+            onClick = { onNotificationClick(notification.id) },
             onPinClick = { onPinClick(notification.id, it) },
+            onRemoveSchedule = { onRemoveSchedule(notification) }
         )
     }
 }
