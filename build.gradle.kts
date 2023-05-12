@@ -18,7 +18,9 @@ allprojects {
         kotlin {
             target("**/*.kt")
             targetExclude("**/build/**/*.kt")
-            ktlint(libs.versions.ktlint.get()).userData(mapOf("android" to "true"))
+            ktlint(libs.versions.ktlint.get())
+              .userData(mapOf("android" to "true"))
+              .setEditorConfigPath("$rootDir/.editorconfig")
         }
         format("kts") {
             target("**/*.kts")

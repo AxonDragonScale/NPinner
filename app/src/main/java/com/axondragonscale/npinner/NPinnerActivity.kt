@@ -29,7 +29,7 @@ class NPinnerActivity : ComponentActivity() {
             NPinnerTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.background,
                 ) {
                     NPinnerApp()
                 }
@@ -40,7 +40,6 @@ class NPinnerActivity : ComponentActivity() {
             notificationMonitor.ensurePinnedNotificationVisibility()
         }
     }
-
 }
 
 @Preview(showBackground = true)
