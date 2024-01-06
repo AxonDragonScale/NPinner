@@ -17,13 +17,25 @@ import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TimePicker
+import androidx.compose.material3.TimePickerDefaults
+import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -34,8 +46,11 @@ import com.axondragonscale.npinner.model.Schedule
 import com.axondragonscale.npinner.model.ScheduleType
 import com.axondragonscale.npinner.ui.common.PickerButton
 import com.axondragonscale.npinner.ui.common.SegmentedToggleButton
+import com.axondragonscale.npinner.ui.common.TimePickerDialog
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 import com.axondragonscale.npinner.util.formatted
+import com.axondragonscale.npinner.util.toEpochMillis
+import com.axondragonscale.npinner.util.toLocalDate
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -49,7 +64,7 @@ fun Scheduler(
     onScheduleChange: (Schedule?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -66,16 +81,16 @@ fun Scheduler(
                 Text(
                     modifier = Modifier.padding(4.dp),
                     text = "Schedule",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-
+            
             IconToggleButton(
                 modifier = Modifier.padding(12.dp),
                 checked = schedule != null,
                 onCheckedChange = {
                     onScheduleChange(if (it) Schedule.newInstance() else null)
-                }
+                },
             ) {
                 Icon(
                     imageVector = if (schedule != null) Icons.Outlined.Delete else Icons.Filled.Add,
@@ -84,12 +99,12 @@ fun Scheduler(
                 )
             }
         }
-
+        
         if (schedule != null) {
             if (!schedule.isFuture) {
                 InvalidScheduleWarning()
             }
-
+            
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -103,21 +118,21 @@ fun Scheduler(
                     },
                     colors = CheckboxDefaults.colors(
                         checkedColor = MaterialTheme.colorScheme.primary,
-                        uncheckedColor = MaterialTheme.colorScheme.onBackground
-                    )
+                        uncheckedColor = MaterialTheme.colorScheme.onBackground,
+                    ),
                 )
-
+                
                 Text(
                     text = "REPEAT EVERY...",
                     style = MaterialTheme.typography.labelLarge,
                     color = if (schedule.type != null) MaterialTheme.colorScheme.primary
-                            else MaterialTheme.colorScheme.onBackground,
-                    fontWeight = FontWeight.Bold
+                    else MaterialTheme.colorScheme.onBackground,
+                    fontWeight = FontWeight.Bold,
                 )
             }
-
+            
             Spacer(modifier = Modifier.height(8.dp))
-
+            
             SegmentedToggleButton(
                 modifier = Modifier
                     .padding(horizontal = 24.dp)
@@ -126,10 +141,10 @@ fun Scheduler(
                 onItemSelected = {
                     onScheduleChange(schedule.copy(type = ScheduleType.fromOrdinal(it)))
                 },
-                enabled = schedule.type != null
+                enabled = schedule.type != null,
             )
         }
-
+        
         Divider()
     }
 }
@@ -143,7 +158,7 @@ fun InvalidScheduleWarning() {
             .padding(bottom = 12.dp)
             .background(
                 color = MaterialTheme.colorScheme.error,
-                shape = RoundedCornerShape(8.dp)
+                shape = RoundedCornerShape(8.dp),
             )
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -151,9 +166,9 @@ fun InvalidScheduleWarning() {
         Icon(
             imageVector = Icons.Outlined.Info,
             contentDescription = "Warning",
-            tint = MaterialTheme.colorScheme.onError
+            tint = MaterialTheme.colorScheme.onError,
         )
-
+        
         Text(
             modifier = Modifier.padding(start = 12.dp),
             text = "This schedule is in the past. Please delete or edit your schedule.",
@@ -165,6 +180,7 @@ fun InvalidScheduleWarning() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DateTimePicker(
     schedule: Schedule,
@@ -172,41 +188,70 @@ fun DateTimePicker(
     modifier: Modifier = Modifier,
 ) {
     Row {
-        // TODO: PickerDialog Styling
-
+        var showDatePicker by remember { mutableStateOf(false) }
         PickerButton(
             text = schedule.date.formatted,
-            onClick = {
-                /*DatePickerDialog(
-                    context,
-                    { _: DatePicker, year: Int, month: Int, day: Int ->
-                        val newDate = LocalDate.of(year, month, day)
-                        onScheduleChange(schedule.copy(date = newDate))
-                    },
-                    schedule.date.year,
-                    schedule.date.monthValue,
-                    schedule.date.dayOfMonth
-                ).show()*/
-            }
+            onClick = { showDatePicker = true },
         )
         
+        if (showDatePicker) {
+            val datePickerState = rememberDatePickerState(
+                initialSelectedDateMillis = schedule.asLocalDateTime.toEpochMillis(),
+            )
+            DatePickerDialog(
+                onDismissRequest = { showDatePicker = false },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            val millis = datePickerState.selectedDateMillis ?: return@TextButton
+                            showDatePicker = false
+                            onScheduleChange(schedule.copy(date = millis.toLocalDate()))
+                        },
+                    ) {
+                        Text("Ok")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showDatePicker = false }) {
+                        Text("Cancel")
+                    }
+                },
+            ) {
+                DatePicker(state = datePickerState)
+            }
+        }
+        
         Spacer(modifier = Modifier.width(8.dp))
-
+        
+        var showTimePicker by remember { mutableStateOf(false) }
         PickerButton(
             text = schedule.time.formatted,
-            onClick = {
-                /*TimePickerDialog(
-                    context,
-                    { _: TimePicker, hour: Int, min: Int ->
-                        val newTime = LocalTime.of(hour, min)
-                        onScheduleChange(schedule.copy(time = newTime))
-                    },
-                    schedule.time.hour,
-                    schedule.time.minute,
-                    false
-                ).show()*/
-            }
+            onClick = { showTimePicker = true },
         )
+        
+        if (showTimePicker) {
+            val timePickerState = rememberTimePickerState(
+                initialHour = schedule.time.hour,
+                initialMinute = schedule.time.minute,
+                is24Hour = false,
+            )
+            TimePickerDialog(
+                onCancel = { showTimePicker = false },
+                onConfirm = {
+                    showTimePicker = false
+                    val newTime = LocalTime.of(timePickerState.hour, timePickerState.minute)
+                    onScheduleChange(schedule.copy(time = newTime))
+                },
+            ) {
+                TimePicker(
+                    state = timePickerState,
+                    colors = TimePickerDefaults.colors(
+                        periodSelectorSelectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                        periodSelectorSelectedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    ),
+                )
+            }
+        }
     }
 }
 

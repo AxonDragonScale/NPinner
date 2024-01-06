@@ -1,8 +1,12 @@
 package com.axondragonscale.npinner.util
 
 import android.text.format.DateUtils
+import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 /**
@@ -13,6 +17,10 @@ private const val DATE_FORMAT = "MMM d"
 private val dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
 val LocalDate.formatted: String
     get() = this.format(dateFormatter).uppercase()
+
+fun Long.toLocalDate(): LocalDate = Instant.ofEpochMilli(this)
+    .atZone(ZoneId.systemDefault())
+    .toLocalDate()
 
 
 private const val TIME_FORMAT = "h:mm a"
@@ -25,5 +33,7 @@ val Long.relativeTimeSpan: String
         this,
         System.currentTimeMillis(),
         DateUtils.SECOND_IN_MILLIS,
-        DateUtils.FORMAT_ABBREV_RELATIVE
+        DateUtils.FORMAT_ABBREV_RELATIVE,
     ).toString()
+
+fun LocalDateTime.toEpochMillis(): Long = this.toInstant(ZoneOffset.UTC).toEpochMilli()

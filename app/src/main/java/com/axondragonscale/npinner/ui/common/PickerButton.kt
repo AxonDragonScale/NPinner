@@ -27,7 +27,7 @@ import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 fun PickerButton(
     text: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Button(
         modifier = modifier,
@@ -35,15 +35,15 @@ fun PickerButton(
         shape = RoundedCornerShape(4.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.Transparent,
-            contentColor = MaterialTheme.colorScheme.primary
+            contentColor = MaterialTheme.colorScheme.primary,
         ),
-        contentPadding = PaddingValues(8.dp)
+        contentPadding = PaddingValues(8.dp),
     ) {
         Text(
             modifier = Modifier.padding(end = 4.dp),
             text = text,
             style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
         )
         Icon(imageVector = Icons.Filled.ArrowDropDown, contentDescription = null)
     }
@@ -56,7 +56,7 @@ fun PickerButtonPreview() {
     NPinnerTheme {
         PickerButton(
             text = "Apr 28",
-            onClick = {}
+            onClick = {},
         )
     }
 }
