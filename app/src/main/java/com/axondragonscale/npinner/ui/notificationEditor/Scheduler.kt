@@ -126,7 +126,7 @@ fun Scheduler(
                     text = "REPEAT EVERY...",
                     style = MaterialTheme.typography.labelLarge,
                     color = if (schedule.type != null) MaterialTheme.colorScheme.primary
-                    else MaterialTheme.colorScheme.onBackground,
+                            else MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Bold,
                 )
             }

@@ -98,10 +98,14 @@ dependencies {
     implementation(libs.accompanist.permissions)
 
     testImplementation(libs.junit)
-    
 }
 
 detekt {
     parallel = true
     config = files("../config/detekt/detekt.yml")
+    
+    dependencies {
+        detektPlugins(libs.detekt.formatting)
+    }
 }
+
