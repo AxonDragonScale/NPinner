@@ -2,6 +2,7 @@
 # Plugin Verions
 androidGradlePlugin = "8.1.0-beta01"
 kotlin = "1.8.10"
+ksp = "1.8.10-1.0.9"
 
 # Build Versions
 applicationId = "com.axondragonscale.npinner"
@@ -18,6 +19,7 @@ hilt = "2.45"
 hiltNavigationCompose = "1.0.0"
 junit = "4.13.2"
 lifecycleRuntimeKtx = "2.6.1"
+room = "2.5.1"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -35,15 +37,19 @@ compose-material-icons-extended = { module = "androidx.compose.material:material
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 junit = { module = "junit:junit", version.ref = "junit" }
-
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 
 [bundles]
 compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-material-icons-extended"]
 composeDebug = ["compose-ui-tooling", "compose-ui-test-manifest"]
 hilt = ["hilt-android", "hilt-navigation-compose"]
+room = ["room-runtime", "room-ktx"]
