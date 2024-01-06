@@ -15,7 +15,7 @@ val keystoreProperties = Properties().apply { load(keystorePropertiesFIS) }
 android {
     namespace = libs.versions.applicationId.get()
     compileSdk = libs.versions.compileSdk.get().toInt()
-
+    
     defaultConfig {
         applicationId = libs.versions.applicationId.get()
         minSdk = libs.versions.minSdk.get().toInt()
