@@ -9,8 +9,11 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationChannelCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompat.BigTextStyle
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import com.axondragonscale.npinner.R
 import com.axondragonscale.npinner.model.NPinnerNotification
 import com.axondragonscale.npinner.util.systemNotificationManager
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -45,7 +48,13 @@ class NPinnerNotificationManager @Inject constructor(
     }
 
     private fun NPinnerNotification.toSystemNotification(): Notification {
-        TODO()
+        return NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_app_icon)
+            .setContentTitle(title)
+            .setContentText(description)
+            .setStyle(BigTextStyle().bigText(description))
+            .setOngoing(true)
+            .build()
     }
 
     private fun hasNotificationPermission() =

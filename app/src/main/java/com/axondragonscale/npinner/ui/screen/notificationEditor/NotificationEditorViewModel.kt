@@ -3,6 +3,7 @@ package com.axondragonscale.npinner.ui.screen.notificationEditor
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.axondragonscale.npinner.core.NPinnerNotificationManager
 import com.axondragonscale.npinner.model.NPinnerNotification
 import com.axondragonscale.npinner.model.Schedule
 import com.axondragonscale.npinner.repository.NotificationRepository
@@ -26,6 +27,7 @@ import javax.inject.Inject
 class NotificationEditorViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val repository: NotificationRepository,
+    private val notificationManager: NPinnerNotificationManager,
 ) : ViewModel() {
 
     private val id = savedStateHandle.get<String>(Route.ARG_ID)
@@ -55,10 +57,12 @@ class NotificationEditorViewModel @Inject constructor(
                 createdAt = System.currentTimeMillis(),
             )
         }
-        repository.upsert(notification)
+        launch { repository.upsert(notification) }
 
         if (createNew) {
-            // TODO: Pin Notification if isPinned
+            if (notification.isPinned)
+                notificationManager.postNotification(notification)
+
             // TODO: Schedule Notification otherwise
         }
     }
