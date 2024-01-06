@@ -1,5 +1,6 @@
 package com.axondragonscale.npinner.ui.notifications.about
 
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,14 +13,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.OpenInNew
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.axondragonscale.npinner.ui.common.NPinnerModalBottomSheet
+import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 
 /**
  * Created by Ronak Harkhani on 13/05/23
@@ -28,6 +32,13 @@ import com.axondragonscale.npinner.ui.common.NPinnerModalBottomSheet
 @Composable
 fun AboutBottomSheet(onDismiss: () -> Unit) {
     NPinnerModalBottomSheet(onDismiss = onDismiss) {
+        AboutContent()
+    }
+}
+
+@Composable
+fun AboutContent() {
+    Column {
         AboutHeader()
         SourceCodeButton()
         Spacer(modifier = Modifier.height(16.dp))
@@ -76,5 +87,17 @@ fun SourceCodeButton() {
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
         )
+    }
+}
+
+
+@Preview(name = "Light Mode", showBackground = true)
+@Preview(name = "Dark Mode", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun ThemePickerBottomSheetPreview() {
+    NPinnerTheme {
+        Surface(color = MaterialTheme.colorScheme.surface) {
+            AboutContent()
+        }
     }
 }
