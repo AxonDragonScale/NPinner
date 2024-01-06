@@ -1,9 +1,9 @@
 package com.axondragonscale.npinner.ui.notifications.nav
 
 import androidx.navigation.NavController
-import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
 import com.axondragonscale.npinner.ui.Destination
 import com.axondragonscale.npinner.ui.notifications.Notifications
 
@@ -14,7 +14,7 @@ import com.axondragonscale.npinner.ui.notifications.Notifications
 fun NavGraphBuilder.notificationsGraph(navController: NavController) {
     composable(
         route = Destination.Notifications.setupRoute,
-        deepLinks = listOf(NavDeepLink(Destination.Notifications.deepLink))
+        deepLinks = listOf(navDeepLink { uriPattern = Destination.Notifications.deepLink })
     ) {
         Notifications(navController = navController)
     }
