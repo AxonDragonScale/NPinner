@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NPinner"
         tools:targetApi="31">
+
         <activity
             android:name=".NPinnerActivity"
             android:exported="true"
@@ -31,6 +32,25 @@
                 <data android:scheme="npinner" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".core.receiver.UnpinNotificationReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="npinner.unpin_notification" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".core.receiver.DeleteNotificationReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="npinner.delete_notification" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

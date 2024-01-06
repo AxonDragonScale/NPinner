@@ -73,7 +73,7 @@ class NotificationEditorViewModel @Inject constructor(
     fun onDeleteClick() = viewModelScope.launch {
         val notification = notificationFlow.value.copy(isPinned = false)
         launch { repository.delete(notification) }
-        notificationManager.dismissNotification(notification)
+        notificationManager.dismissNotification(notification.id)
 
         // TODO: Unschedule notification
     }

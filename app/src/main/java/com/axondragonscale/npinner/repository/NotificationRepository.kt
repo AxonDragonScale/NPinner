@@ -27,6 +27,10 @@ class NotificationRepository @Inject constructor(
     suspend fun getNotification(id: String) =
         notificationDao.getNotification(id).toModel()
 
+    suspend fun updatePinStatus(id: String, isPinned: Boolean) {
+        notificationDao.updatePinStatus(id, isPinned)
+    }
+
     suspend fun delete(notification: NPinnerNotification) {
         val timestamp = System.currentTimeMillis()
         val deletedNotification = notification.copy(
