@@ -15,7 +15,8 @@ class NPinnerApplication : Application(), Configuration.Provider {
     @Inject
     lateinit var hiltWorkerFactory: HiltWorkerFactory
 
-    override fun getWorkManagerConfiguration() = Configuration.Builder()
-        .setWorkerFactory(hiltWorkerFactory)
-        .build()
+    override val workManagerConfiguration: Configuration
+        get() = Configuration.Builder()
+            .setWorkerFactory(hiltWorkerFactory)
+            .build()
 }

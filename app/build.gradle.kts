@@ -102,7 +102,7 @@ dependencies {
 
 detekt {
     parallel = true
-    config = files("../config/detekt/detekt.yml")
+    config.setFrom(files("../config/detekt/detekt.yml"))
     
     dependencies {
         detektPlugins(libs.detekt.formatting)
