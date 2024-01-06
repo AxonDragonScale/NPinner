@@ -16,8 +16,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AppUpdateReceiver : BroadcastReceiver() {
 
-    @Inject
-    lateinit var notificationMonitor: NPinnerNotificationMonitor
+    @Inject lateinit var notificationMonitor: NPinnerNotificationMonitor
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent?.action != Intent.ACTION_MY_PACKAGE_REPLACED) return

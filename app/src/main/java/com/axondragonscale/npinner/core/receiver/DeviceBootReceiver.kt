@@ -16,8 +16,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class DeviceBootReceiver : BroadcastReceiver() {
 
-    @Inject
-    lateinit var notificationMonitor: NPinnerNotificationMonitor
+    @Inject lateinit var notificationMonitor: NPinnerNotificationMonitor
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent?.action != Intent.ACTION_BOOT_COMPLETED) return

@@ -794,7 +794,7 @@ formatting:
   android: true
   autoCorrect: true
   AnnotationOnSeparateLine:
-    active: true
+    active: false
     autoCorrect: true
     indentSize: 4
   AnnotationSpacing:

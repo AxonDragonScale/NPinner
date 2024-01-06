@@ -27,13 +27,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class NPinnerActivity : ComponentActivity() {
-    
-    @Inject
-    lateinit var notificationMonitor: NPinnerNotificationMonitor
-    
-    @Inject
-    lateinit var appPrefsRepository: AppPrefsRepository
-    
+
+    @Inject lateinit var notificationMonitor: NPinnerNotificationMonitor
+    @Inject lateinit var appPrefsRepository: AppPrefsRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -48,7 +45,7 @@ class NPinnerActivity : ComponentActivity() {
                 }
             }
         }
-        
+
         GlobalScope.launch {
             notificationMonitor.ensurePinnedNotificationVisibility()
             WorkManager.getInstance(this@NPinnerActivity)

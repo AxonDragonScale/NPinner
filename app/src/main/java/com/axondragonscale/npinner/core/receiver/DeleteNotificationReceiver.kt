@@ -28,11 +28,8 @@ class DeleteNotificationReceiver : BroadcastReceiver() {
             }
     }
 
-    @Inject
-    lateinit var repository: NotificationRepository
-
-    @Inject
-    lateinit var notificationManager: NPinnerNotificationManager
+    @Inject lateinit var repository: NotificationRepository
+    @Inject lateinit var notificationManager: NPinnerNotificationManager
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val notificationId = intent?.getStringExtra(EXTRA_NOTIFICATION_ID)

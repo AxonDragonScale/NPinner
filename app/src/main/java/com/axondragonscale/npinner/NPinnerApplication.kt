@@ -12,8 +12,7 @@ import javax.inject.Inject
 @HiltAndroidApp
 class NPinnerApplication : Application(), Configuration.Provider {
 
-    @Inject
-    lateinit var hiltWorkerFactory: HiltWorkerFactory
+    @Inject lateinit var hiltWorkerFactory: HiltWorkerFactory
 
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
