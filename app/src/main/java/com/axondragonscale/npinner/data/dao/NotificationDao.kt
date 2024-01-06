@@ -34,7 +34,7 @@ interface NotificationDao {
         ORDER BY updatedAt DESC
         """
     )
-    fun getPinnedNotifications(): Flow<List<NotificationEntity>>
+    suspend fun getPinnedNotifications(): List<NotificationEntity>
 
     @Query(
         """

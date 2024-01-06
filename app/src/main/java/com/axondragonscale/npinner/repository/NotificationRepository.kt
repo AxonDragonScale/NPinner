@@ -24,6 +24,9 @@ class NotificationRepository @Inject constructor(
     fun getNotifications() =
         notificationDao.getNotifications().map { it.toModel() }
 
+    suspend fun getPinnedNotifications() =
+        notificationDao.getPinnedNotifications().toModel()
+
     suspend fun getNotification(id: String) =
         notificationDao.getNotification(id).toModel()
 

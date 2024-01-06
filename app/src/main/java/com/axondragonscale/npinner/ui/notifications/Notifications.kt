@@ -75,10 +75,7 @@ fun Notifications(
                             onNotificationClick(notification.id)
                         },
                         notification = notification,
-                        onPinClick = {
-                            println("zeref - onPinClick $it")
-                            onPinClick(notification.id, it)
-                                     },
+                        onPinClick = { onPinClick(notification.id, it) },
                     )
                 }
             }
