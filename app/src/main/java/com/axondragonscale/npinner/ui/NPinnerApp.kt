@@ -12,8 +12,6 @@ import com.axondragonscale.npinner.ui.notifications.nav.notificationsGraph
 
 @Composable
 fun NPinnerApp() {
-    // TODO: Notification Permission Check and Blocker
-
     val navController = rememberNavController()
     NavHost(
         navController = navController,

@@ -2,6 +2,7 @@ package com.axondragonscale.npinner.ui.common
 
 import android.Manifest
 import android.content.res.Configuration
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -52,6 +53,8 @@ private enum class RequestStatus {
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun NotificationPermission() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+    
     var status by remember { mutableStateOf(RequestStatus.NONE) }
     
     val permissionState = rememberPermissionState(
