@@ -70,6 +70,7 @@ fun Notifications(
                 )
             ) {
                 items(uiState.notifications) { notification ->
+                    // TODO: Swipe to Delete
                     NotificationItem(
                         modifier = Modifier.clickable {
                             onNotificationClick(notification.id)

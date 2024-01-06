@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.axondragonscale.npinner.core.NPinnerNotificationManager
+import com.axondragonscale.npinner.core.NPinnerNotificationScheduler
 import com.axondragonscale.npinner.model.NPinnerNotification
 import com.axondragonscale.npinner.model.Schedule
 import com.axondragonscale.npinner.repository.NotificationRepository
@@ -28,6 +29,7 @@ class NotificationEditorViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val repository: NotificationRepository,
     private val notificationManager: NPinnerNotificationManager,
+    private val notificationScheduler: NPinnerNotificationScheduler,
 ) : ViewModel() {
 
     private val id = savedStateHandle.get<String>(Destination.NotificationEditor.argId)
@@ -41,8 +43,8 @@ class NotificationEditorViewModel @Inject constructor(
             initialValue = NotificationEditorUiState.Loading
         )
 
-    fun onContentChange(title: String, desription: String) = viewModelScope.launch {
-        notificationFlow.emit(notificationFlow.value.copy(title = title, description = desription))
+    fun onContentChange(title: String, description: String) = viewModelScope.launch {
+        notificationFlow.emit(notificationFlow.value.copy(title = title, description = description))
     }
 
     fun onScheduleChange(schedule: Schedule?) = viewModelScope.launch {
@@ -64,18 +66,18 @@ class NotificationEditorViewModel @Inject constructor(
             notificationManager.postNotification(notification)
 
         if (notification.schedule != null) {
-            // TODO: Schedule notification or update existine schedule
+            notificationScheduler.scheduleNotification(notification)
         } else {
-            // TODO: Remove schedule is exists
+            notificationScheduler.cancelScheduledNotification(notification.id)
         }
     }
 
     fun onDeleteClick() = viewModelScope.launch {
         val notification = notificationFlow.value.copy(isPinned = false)
         launch { repository.delete(notification) }
-        notificationManager.dismissNotification(notification.id)
 
-        // TODO: Unschedule notification
+        notificationManager.dismissNotification(notification.id)
+        notificationScheduler.cancelScheduledNotification(notification.id)
     }
 
     private fun notificationEditorUiState(): Flow<NotificationEditorUiState> =
