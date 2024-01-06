@@ -12,11 +12,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.WorkManager
 import com.axondragonscale.npinner.core.NPinnerNotificationMonitor
 import com.axondragonscale.npinner.model.DarkModeConfig
 import com.axondragonscale.npinner.repository.AppPrefsRepository
 import com.axondragonscale.npinner.ui.NPinnerApp
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
+import com.axondragonscale.npinner.work.monitor.MonitorRequest
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -48,6 +51,12 @@ class NPinnerActivity : ComponentActivity() {
         
         GlobalScope.launch {
             notificationMonitor.ensurePinnedNotificationVisibility()
+            WorkManager.getInstance(this@NPinnerActivity)
+                .enqueueUniquePeriodicWork(
+                    MonitorRequest.MONITOR_TAG,
+                    ExistingPeriodicWorkPolicy.KEEP,
+                    MonitorRequest.getRequest(),
+                )
         }
     }
     
