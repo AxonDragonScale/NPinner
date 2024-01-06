@@ -82,6 +82,7 @@ fun Scheduler(
                     .padding(start = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
+                // TODO: Only Checkbox is clickable, Make whole row clickable
                 var checked by remember { mutableStateOf(true) }
                 Checkbox(
                     checked = checked,
