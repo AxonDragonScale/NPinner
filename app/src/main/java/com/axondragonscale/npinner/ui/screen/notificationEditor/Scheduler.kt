@@ -2,14 +2,10 @@ package com.axondragonscale.npinner.ui.screen.notificationEditor
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -35,48 +31,39 @@ import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 
 @Composable
 fun Scheduler(
+    scheduled: Boolean = true,
     modifier: Modifier = Modifier,
 ) {
-    val scheduled = true
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Max),
-        contentAlignment = Alignment.CenterStart
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 24.dp),
-            verticalArrangement = Arrangement.Center,
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(start = 20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             if (!scheduled) {
                 Text(
+                    modifier = Modifier.padding(4.dp),
                     text = "Schedule",
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             } else {
-                Spacer(modifier = Modifier.height(12.dp))
                 DateTimePicker()
-                Spacer(modifier = Modifier.height(24.dp))
+            }
+
+            IconToggleButton(
+                modifier = Modifier.padding(12.dp),
+                checked = scheduled,
+                onCheckedChange = { /*TODO*/ }
+            ) {
+                Icon(
+                    imageVector = if (scheduled) Icons.Outlined.Delete else Icons.Filled.Add,
+                    contentDescription = if (scheduled) "Delete Schedule" else "Add Schedule",
+                    tint = MaterialTheme.colorScheme.primary,
+                )
             }
         }
 
-        IconToggleButton(
-            modifier = Modifier
-                .padding(12.dp)
-                .align(Alignment.TopEnd),
-            checked = scheduled,
-            onCheckedChange = { /*TODO*/ }
-        ) {
-            Icon(
-                imageVector = if (scheduled) Icons.Outlined.Delete else Icons.Filled.Add,
-                contentDescription = if (scheduled) "Delete Schedule" else "Add Schedule",
-                tint = MaterialTheme.colorScheme.primary,
-            )
-        }
-
-        Divider(modifier = Modifier.align(Alignment.BottomCenter))
+        Divider()
     }
 }
 
@@ -106,6 +93,17 @@ fun SchedulerPreview() {
     NPinnerTheme {
         Surface {
             Scheduler()
+        }
+    }
+}
+
+@Preview(name = "Light Mode", showBackground = true)
+@Preview(name = "Dark Mode", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun SchedulerFalsePreview() {
+    NPinnerTheme {
+        Surface {
+            Scheduler(scheduled = false)
         }
     }
 }
