@@ -28,10 +28,12 @@ class NPinnerNotificationManager @Inject constructor(
 
     private val notificationManager = NotificationManagerCompat.from(context)
 
+    init {
+        createNotificationChannel()
+    }
+
     @SuppressLint("MissingPermission")
     fun postNotification(notification: NPinnerNotification) {
-        createNotificationChannel()
-
         val systemNotification = notification.toSystemNotification()
         notificationManager.notify(notification.id.hashCode(), systemNotification)
     }
