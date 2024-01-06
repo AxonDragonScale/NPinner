@@ -19,6 +19,7 @@ import androidx.compose.material3.DismissValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.SwipeToDismiss
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDismissState
@@ -40,6 +41,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.axondragonscale.npinner.R
 import com.axondragonscale.npinner.model.NPinnerNotification
+import com.axondragonscale.npinner.model.Schedule
 import com.axondragonscale.npinner.ui.common.BottomBar
 import com.axondragonscale.npinner.ui.common.BottomButton
 import com.axondragonscale.npinner.ui.common.IconActionButton
@@ -226,9 +228,53 @@ fun NoNotifications(modifier: Modifier = Modifier) {
 @Preview(name = "Light Mode", showBackground = true)
 @Preview(name = "Dark Mode", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
+fun NotificationsPreviewEmpty() {
+    NPinnerTheme {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            Notifications(
+                uiState = NotificationsUiState.Success(emptyList()),
+                onCreateClick = { },
+                onNotificationClick = { },
+                onPinClick = { _, _ -> },
+                onRemoveSchedule = { },
+                onNotificationDelete = { },
+            )
+        }
+    }
+}
+
+@Preview(name = "Light Mode", showBackground = true)
+@Preview(name = "Dark Mode", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
 fun NotificationsPreview() {
     NPinnerTheme {
-        Notifications(rememberNavController())
+        Surface(color = MaterialTheme.colorScheme.background) {
+            Notifications(
+                uiState = NotificationsUiState.Success(
+                    listOf(
+                        NPinnerNotification.newInstance()
+                            .copy(title = "Title 1", description = "Description 1"),
+                        NPinnerNotification.newInstance()
+                            .copy(
+                                title = "Title 2",
+                                description = "Description 2 \nLine 2",
+                                isPinned = false,
+                            ),
+                        NPinnerNotification.newInstance()
+                            .copy(
+                                title = "Title 3",
+                                description = "Description 3",
+                                schedule = Schedule.newInstance(),
+                            ),
+                    )
+                ),
+                onCreateClick = { },
+                onNotificationClick = { },
+                onPinClick = { _, _ -> },
+                onRemoveSchedule = { },
+                onNotificationDelete = { },
+            )
+        }
     }
 }
 
