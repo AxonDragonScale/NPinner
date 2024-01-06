@@ -6,9 +6,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -38,7 +36,6 @@ import com.axondragonscale.npinner.ui.theme.NPinnerTheme
  * Created by Ronak Harkhani on 28/04/23
  */
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NPinnerTextField(
     value: String,
