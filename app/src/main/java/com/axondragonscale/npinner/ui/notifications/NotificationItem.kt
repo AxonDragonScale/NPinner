@@ -1,4 +1,4 @@
-package com.axondragonscale.npinner.ui.screen.notifications
+package com.axondragonscale.npinner.ui.notifications
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke

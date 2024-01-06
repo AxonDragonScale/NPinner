@@ -1,4 +1,4 @@
-package com.axondragonscale.npinner.ui.screen.notifications
+package com.axondragonscale.npinner.ui.notifications
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

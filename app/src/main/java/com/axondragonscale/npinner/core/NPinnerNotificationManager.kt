@@ -48,11 +48,14 @@ class NPinnerNotificationManager @Inject constructor(
     }
 
     private fun NPinnerNotification.toSystemNotification(): Notification {
+        val contentIntent = IntentProvider.getNotificationEditorPendingIntent(context, id)
+
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_app_icon)
             .setContentTitle(title)
             .setContentText(description)
             .setStyle(BigTextStyle().bigText(description))
+            .setContentIntent(contentIntent)
             .setOngoing(true)
             .build()
     }

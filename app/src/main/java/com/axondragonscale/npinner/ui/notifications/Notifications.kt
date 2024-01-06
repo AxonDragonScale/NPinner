@@ -1,4 +1,4 @@
-package com.axondragonscale.npinner.ui.screen.notifications
+package com.axondragonscale.npinner.ui.notifications
 
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
@@ -25,6 +25,7 @@ import com.axondragonscale.npinner.ui.common.BottomBar
 import com.axondragonscale.npinner.ui.common.BottomButton
 import com.axondragonscale.npinner.ui.common.IconActionButton
 import com.axondragonscale.npinner.ui.common.TopBar
+import com.axondragonscale.npinner.ui.notificationEditor.nav.navigateToNotificationEditor
 import com.axondragonscale.npinner.ui.theme.Dimen
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 
@@ -41,8 +42,8 @@ fun Notifications(
 
     Notifications(
         uiState = uiState,
-        onCreateClick = { navController.navigate(Route.NOTIFICATION_EDITOR) },
-        onNotificationClick = { navController.navigate("${Route.NOTIFICATION_EDITOR}?${Route.ARG_ID}=$it") }
+        onCreateClick = { navController.navigateToNotificationEditor() },
+        onNotificationClick = { navController.navigateToNotificationEditor(it) }
     )
 }
 

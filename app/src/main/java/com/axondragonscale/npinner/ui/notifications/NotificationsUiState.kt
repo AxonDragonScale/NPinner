@@ -1,4 +1,4 @@
-package com.axondragonscale.npinner.ui.screen.notifications
+package com.axondragonscale.npinner.ui.notifications
 
 import com.axondragonscale.npinner.model.NPinnerNotification
 
