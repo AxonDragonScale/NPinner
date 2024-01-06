@@ -18,6 +18,7 @@ activityCompose = "1.7.1"
 androidxLifecycle = "2.6.1"
 composeBom = "2023.05.01"
 coreKtx = "1.10.0"
+datastorePrefs = "1.0.0"
 hilt = "2.45"
 hiltWork = "1.0.0"
 hiltNavigationCompose = "1.1.0-alpha01"
@@ -28,6 +29,7 @@ work = "2.8.1"
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+datastore-prefs = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePrefs" }
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }

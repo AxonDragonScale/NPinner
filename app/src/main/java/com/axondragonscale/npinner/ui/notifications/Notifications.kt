@@ -45,6 +45,8 @@ import com.axondragonscale.npinner.ui.common.BottomButton
 import com.axondragonscale.npinner.ui.common.IconActionButton
 import com.axondragonscale.npinner.ui.common.TopBar
 import com.axondragonscale.npinner.ui.notificationEditor.nav.navigateToNotificationEditor
+import com.axondragonscale.npinner.ui.notifications.about.AboutBottomSheet
+import com.axondragonscale.npinner.ui.notifications.themePicker.ThemePickerBottomSheet
 import com.axondragonscale.npinner.ui.theme.Dimen
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 
@@ -137,7 +139,7 @@ fun Notifications(
         )
         
         if (showThemeSelectionBottomSheet)
-            ThemeSelectionBottomSheet(onDismiss = { showThemeSelectionBottomSheet = false })
+            ThemePickerBottomSheet(onDismiss = { showThemeSelectionBottomSheet = false })
         
         if (showAboutBottomSheet)
             AboutBottomSheet(onDismiss = { showAboutBottomSheet = false })
