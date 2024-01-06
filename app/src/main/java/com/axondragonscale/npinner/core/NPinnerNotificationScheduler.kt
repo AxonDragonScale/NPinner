@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
 import com.axondragonscale.npinner.model.NPinnerNotification
-import com.axondragonscale.npinner.work.ScheduleNotificationRequest
+import com.axondragonscale.npinner.work.schedule.ScheduleNotificationRequest
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.time.LocalDateTime
 import javax.inject.Inject

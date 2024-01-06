@@ -1,4 +1,4 @@
-package com.axondragonscale.npinner.work
+package com.axondragonscale.npinner.work.schedule
 
 import android.content.Context
 import androidx.hilt.work.HiltWorker

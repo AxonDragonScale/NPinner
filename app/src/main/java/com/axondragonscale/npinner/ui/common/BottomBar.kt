@@ -117,19 +117,19 @@ fun BottomBarPreview() {
                 BottomButton(
                     modifier = Modifier.weight(1f),
                     title = "MAIN ACTION",
-                    onClick = { /*TODO*/ }
+                    onClick = {}
                 )
             },
             leftAction = {
                 IconActionButton(
                     icon = Icons.Outlined.DarkMode,
-                    onClick = { /*TODO*/ },
+                    onClick = {},
                 )
             },
             rightAction = {
                 IconActionButton(
                     icon = Icons.Outlined.Info,
-                    onClick = { /*TODO*/ }
+                    onClick = {}
                 )
             }
         )
@@ -146,7 +146,7 @@ fun BottomBarMainOnlyPreview() {
                 BottomButton(
                     modifier = Modifier.weight(1F),
                     title = "MAIN ACTION",
-                    onClick = { /*TODO*/ }
+                    onClick = {}
                 )
             },
         )

@@ -86,6 +86,8 @@ fun Scheduler(
             }
         }
 
+        // TODO: Show Warning if scheduled date is in the past
+
         if (schedule != null) {
             Row(
                 modifier = Modifier

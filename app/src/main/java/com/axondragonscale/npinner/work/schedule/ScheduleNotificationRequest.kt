@@ -1,4 +1,4 @@
-package com.axondragonscale.npinner.work
+package com.axondragonscale.npinner.work.schedule
 
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
