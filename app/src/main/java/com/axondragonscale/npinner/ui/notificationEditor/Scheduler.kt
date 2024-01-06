@@ -138,6 +138,7 @@ fun Scheduler(
                     .padding(horizontal = 24.dp)
                     .padding(bottom = 24.dp),
                 items = ScheduleType.stringValues,
+                defaultSelectedItemIndex = schedule.type?.ordinal ?: 0,
                 onItemSelected = {
                     onScheduleChange(schedule.copy(type = ScheduleType.fromOrdinal(it)))
                 },
