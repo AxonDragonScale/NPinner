@@ -2,14 +2,12 @@ package com.axondragonscale.npinner.ui.notificationEditor.nav
 
 import android.content.Intent
 import androidx.navigation.NavController
-import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import com.axondragonscale.npinner.NPinnerConstants
-import com.axondragonscale.npinner.ui.Route
+import com.axondragonscale.npinner.ui.Destination
 import com.axondragonscale.npinner.ui.notificationEditor.NotificationEditor
 
 /**
@@ -18,14 +16,14 @@ import com.axondragonscale.npinner.ui.notificationEditor.NotificationEditor
 
 fun NavGraphBuilder.notificationEditorGraph(navController: NavController) {
     composable(
-        route = Route.NOTIFICATION_EDITOR + "?${Route.ARG_ID}={${Route.ARG_ID}}",
+        route = Destination.NotificationEditor.setupRoute,
         deepLinks = listOf(
             navDeepLink {
                 action = Intent.ACTION_EDIT
-                uriPattern = NPinnerConstants.DeepLink.NOTIFICATION_EDITOR + "?${Route.ARG_ID}={${Route.ARG_ID}}"
+                uriPattern = Destination.NotificationEditor.setupDeepLink
             }
         ),
-        arguments = listOf(navArgument(Route.ARG_ID) {
+        arguments = listOf(navArgument(Destination.NotificationEditor.argId) {
             type = NavType.StringType
             nullable = true
         })
@@ -35,6 +33,6 @@ fun NavGraphBuilder.notificationEditorGraph(navController: NavController) {
 }
 
 fun NavController.navigateToNotificationEditor(id: String? = null) {
-    if (id == null) navigate(Route.NOTIFICATION_EDITOR)
-    else navigate("${Route.NOTIFICATION_EDITOR}?${Route.ARG_ID}=$id")
+    if (id == null) navigate(Destination.NotificationEditor.route)
+    else navigate("${Destination.NotificationEditor.route}?${Destination.NotificationEditor.argId}=$id")
 }

@@ -5,12 +5,4 @@ package com.axondragonscale.npinner
  */
 object NPinnerConstants {
 
-    object DeepLink {
-
-        const val SCHEME = "npinner://"
-        const val NOTIFICTIONS = SCHEME + "notifications"
-        const val NOTIFICATION_EDITOR = SCHEME + "notificationEditor"
-
-    }
-
 }
