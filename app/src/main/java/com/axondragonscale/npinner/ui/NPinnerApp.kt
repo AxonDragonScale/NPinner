@@ -1,6 +1,7 @@
 package com.axondragonscale.npinner.ui
 
 import androidx.compose.runtime.Composable
+import com.axondragonscale.npinner.ui.screen.notificationEditor.NotificationEditor
 import com.axondragonscale.npinner.ui.screen.notifications.Notifications
 
 /**
@@ -9,5 +10,5 @@ import com.axondragonscale.npinner.ui.screen.notifications.Notifications
 
 @Composable
 fun NPinnerApp() {
-    Notifications()
+    NotificationEditor()
 }
