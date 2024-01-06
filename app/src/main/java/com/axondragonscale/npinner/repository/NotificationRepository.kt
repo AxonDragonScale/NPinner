@@ -6,10 +6,12 @@ import com.axondragonscale.npinner.data.mapper.toModel
 import com.axondragonscale.npinner.model.NPinnerNotification
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Created by Ronak Harkhani on 30/04/23
  */
+@Singleton
 class NotificationRepository @Inject constructor(
     private val notificationDao: NotificationDao,
 ) {
@@ -26,7 +28,11 @@ class NotificationRepository @Inject constructor(
         notificationDao.getNotification(id).toModel()
 
     suspend fun delete(notification: NPinnerNotification) {
-        val deletedNotification = notification.copy(deletedAt = System.currentTimeMillis())
+        val timestamp = System.currentTimeMillis()
+        val deletedNotification = notification.copy(
+            updatedAt = timestamp,
+            deletedAt = timestamp,
+        )
         notificationDao.upsert(deletedNotification.toEntity())
     }
 }
