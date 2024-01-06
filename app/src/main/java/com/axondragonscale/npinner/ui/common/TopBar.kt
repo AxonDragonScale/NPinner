@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.axondragonscale.npinner.ui.theme.DividerColor
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 
 /**
@@ -40,13 +41,7 @@ fun TopBar(
             fontWeight = FontWeight.Bold
         )
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
-                .align(Alignment.BottomCenter)
-                .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.15F))
-        )
+        Divider(modifier = Modifier.align(Alignment.BottomCenter))
     }
 }
 
