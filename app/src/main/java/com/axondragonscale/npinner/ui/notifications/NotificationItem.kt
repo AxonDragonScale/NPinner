@@ -53,6 +53,7 @@ import java.time.LocalTime
 @Composable
 fun NotificationItem(
     notification: NPinnerNotification,
+    onPinClick: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
@@ -95,21 +96,21 @@ fun NotificationItem(
             modifier = Modifier
                 .size(48.dp)
                 .align(Alignment.TopEnd),
-            checked = false,
-            onCheckedChange = {}, // TODO: Pin and Unpin on click
+            checked = notification.isPinned,
+            onCheckedChange = onPinClick,
             colors = IconButtonDefaults.iconToggleButtonColors(
                 contentColor = MaterialTheme.colorScheme.primary
             ),
         ) {
             if (notification.isPinned) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_pin),
-                    contentDescription = "Pin Notification",
+                    painter = painterResource(id = R.drawable.ic_pinned),
+                    contentDescription = "Unpin Notification",
                 )
             } else {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_pinned),
-                    contentDescription = "Unpin Notification",
+                    painter = painterResource(id = R.drawable.ic_pin),
+                    contentDescription = "Pin Notification",
                 )
             }
         }
@@ -197,7 +198,8 @@ fun NotificationItemPreview() {
                 schedule = Schedule(LocalDate.now(), LocalTime.now(), ScheduleType.DAY),
                 createdAt = 1L,
                 updatedAt = 1L,
-            )
+            ),
+            onPinClick = {}
         )
     }
 }
