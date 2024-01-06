@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.axondragonscale.npinner.BuildConfig
 import com.axondragonscale.npinner.ui.common.NPinnerModalBottomSheet
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 
@@ -56,7 +57,7 @@ fun AboutHeader() {
         
         Text(
             modifier = Modifier.padding(top = 2.dp),
-            text = "VERSION 1.0.0",
+            text = "VERSION ${BuildConfig.VERSION_NAME}",
             style = MaterialTheme.typography.labelSmall,
             fontWeight = FontWeight.Medium,
         )

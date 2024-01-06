@@ -13,6 +13,8 @@ compileSdk = "34"
 minSdk = "26"
 targetSdk = "34"
 composeCompiler = "1.5.7"
+versionCode = "100"
+versionName = "1.0.0"
 
 # Dependency Versions
 accompanist = "0.32.0"
