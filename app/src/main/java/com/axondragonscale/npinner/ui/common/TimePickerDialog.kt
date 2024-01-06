@@ -92,7 +92,7 @@ fun TimePickerDialog(
 fun TimePickerDialogPreview() {
     NPinnerTheme {
         Surface {
-            TimePickerDialog(onCancel = { /*TODO*/ }, onConfirm = { /*TODO*/ }) {
+            TimePickerDialog(onCancel = { }, onConfirm = { }) {
                 TimePicker(state = rememberTimePickerState())
             }
         }

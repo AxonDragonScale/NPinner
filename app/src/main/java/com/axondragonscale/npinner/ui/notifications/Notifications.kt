@@ -38,13 +38,13 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.axondragonscale.npinner.R
 import com.axondragonscale.npinner.model.NPinnerNotification
 import com.axondragonscale.npinner.model.Schedule
 import com.axondragonscale.npinner.ui.common.BottomBar
 import com.axondragonscale.npinner.ui.common.BottomButton
 import com.axondragonscale.npinner.ui.common.IconActionButton
+import com.axondragonscale.npinner.ui.common.NotificationPermission
 import com.axondragonscale.npinner.ui.common.TopBar
 import com.axondragonscale.npinner.ui.notificationEditor.nav.navigateToNotificationEditor
 import com.axondragonscale.npinner.ui.notifications.about.AboutBottomSheet
@@ -62,6 +62,8 @@ fun Notifications(
     viewModel: NotificationsViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    
+    NotificationPermission()
     
     Notifications(
         uiState = uiState,

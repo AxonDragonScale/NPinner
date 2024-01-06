@@ -76,6 +76,9 @@ dependencies {
 
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)
+    
+    implementation(libs.accompanist.permissions)
 
     testImplementation(libs.junit)
+    
 }
