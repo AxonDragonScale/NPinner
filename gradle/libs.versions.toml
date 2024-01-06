@@ -16,7 +16,7 @@ composeCompiler = "1.4.3"
 # Dependency Versions
 activityCompose = "1.7.1"
 androidxLifecycle = "2.6.1"
-composeBom = "2023.04.01"
+composeBom = "2023.05.01"
 coreKtx = "1.10.0"
 hilt = "2.45"
 hiltWork = "1.0.0"
@@ -39,7 +39,6 @@ compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeB
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
-compose-material = { module = "androidx.compose.material:material" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
 compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
@@ -59,7 +58,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 
 [bundles]
-compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material", "compose-material3", "compose-material-icons-extended"]
+compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-material-icons-extended"]
 composeDebug = ["compose-ui-tooling", "compose-ui-test-manifest"]
 hilt = ["hilt-android", "hilt-navigation-compose", "hilt-work"]
 hiltKapt = ["hilt-android-compiler", "hilt-work-compiler"]

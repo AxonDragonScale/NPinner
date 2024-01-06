@@ -1,10 +1,6 @@
 package com.axondragonscale.npinner.ui.notificationEditor
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.content.res.Configuration
-import android.widget.DatePicker
-import android.widget.TimePicker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,7 +26,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -177,14 +172,12 @@ fun DateTimePicker(
     modifier: Modifier = Modifier,
 ) {
     Row {
-        val context = LocalContext.current
-
         // TODO: PickerDialog Styling
 
         PickerButton(
             text = schedule.date.formatted,
             onClick = {
-                DatePickerDialog(
+                /*DatePickerDialog(
                     context,
                     { _: DatePicker, year: Int, month: Int, day: Int ->
                         val newDate = LocalDate.of(year, month, day)
@@ -193,16 +186,16 @@ fun DateTimePicker(
                     schedule.date.year,
                     schedule.date.monthValue,
                     schedule.date.dayOfMonth
-                ).show()
+                ).show()*/
             }
         )
-
+        
         Spacer(modifier = Modifier.width(8.dp))
 
         PickerButton(
             text = schedule.time.formatted,
             onClick = {
-                TimePickerDialog(
+                /*TimePickerDialog(
                     context,
                     { _: TimePicker, hour: Int, min: Int ->
                         val newTime = LocalTime.of(hour, min)
@@ -211,7 +204,7 @@ fun DateTimePicker(
                     schedule.time.hour,
                     schedule.time.minute,
                     false
-                ).show()
+                ).show()*/
             }
         )
     }

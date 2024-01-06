@@ -2,7 +2,6 @@ package com.axondragonscale.npinner.ui.notifications
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,19 +10,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.DismissDirection
-import androidx.compose.material.DismissValue
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.FractionalThreshold
-import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.rememberDismissState
+import androidx.compose.material3.DismissDirection
+import androidx.compose.material3.DismissValue
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SwipeToDismiss
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -68,7 +66,6 @@ fun Notifications(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun Notifications(
     uiState: NotificationsUiState,
@@ -136,7 +133,7 @@ fun Notifications(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SwipeableNotificationItem(
     notification: NPinnerNotification,
@@ -146,17 +143,17 @@ fun SwipeableNotificationItem(
     onRemoveSchedule: (NPinnerNotification) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val dismissState = rememberDismissState() {
-        if (it != DismissValue.Default) onNotificationDelete(notification)
-        true
-    }
-    // TODO: Added material Lib Dependency for SwipeToDismiss
-    // Now both material and material3 are present in dependencies
-    // Look into extracting out required code instead of using material dependency
+    val dismissState = rememberDismissState(
+        confirmValueChange = {
+            if (it != DismissValue.Default) onNotificationDelete(notification)
+            true
+        },
+        positionalThreshold = { it * 0.5F },
+    )
+    
     SwipeToDismiss(
         modifier = modifier,
         state = dismissState,
-        dismissThresholds = { FractionalThreshold(0.5F) },
         background = {
             val alignment = when (dismissState.dismissDirection) {
                 DismissDirection.StartToEnd -> Alignment.CenterStart
@@ -179,14 +176,15 @@ fun SwipeableNotificationItem(
                 )
             }
         },
-    ) {
-        NotificationItem(
-            notification = notification,
-            onClick = { onNotificationClick(notification.id) },
-            onPinClick = { onPinClick(notification.id, it) },
-            onRemoveSchedule = { onRemoveSchedule(notification) }
-        )
-    }
+        dismissContent = {
+            NotificationItem(
+                notification = notification,
+                onClick = { onNotificationClick(notification.id) },
+                onPinClick = { onPinClick(notification.id, it) },
+                onRemoveSchedule = { onRemoveSchedule(notification) }
+            )
+        }
+    )
 }
 
 @Composable
