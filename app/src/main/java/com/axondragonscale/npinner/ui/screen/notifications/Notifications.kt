@@ -1,22 +1,22 @@
 package com.axondragonscale.npinner.ui.screen.notifications
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.axondragonscale.npinner.ui.Route
@@ -30,9 +30,24 @@ import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 /**
  * Created by Ronak Harkhani on 22/04/23
  */
+
 @Composable
 fun Notifications(
     navController: NavController,
+    viewModel: NotificationsViewModel = hiltViewModel(),
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    Notifications(
+        uiState = uiState,
+        onCreateClick = { navController.navigate(Route.NOTIFICATION_EDITOR) }
+    )
+}
+
+@Composable
+fun Notifications(
+    uiState: NotificationsUiState,
+    onCreateClick: () -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         TopBar(
@@ -42,14 +57,16 @@ fun Notifications(
             title = "Notifications"
         )
 
-        LazyColumn(
-            modifier = Modifier.padding(
-                top = Dimen.TOP_BAR_HEIGHT,
-                bottom = Dimen.BOTTOM_BAR_HEIGHT
-            )
-        ) {
-            items(10) { index ->
-                NotificationItem()
+        if (uiState is NotificationsUiState.Success) {
+            LazyColumn(
+                modifier = Modifier.padding(
+                    top = Dimen.TOP_BAR_HEIGHT,
+                    bottom = Dimen.BOTTOM_BAR_HEIGHT
+                )
+            ) {
+                items(uiState.notifications) { notification ->
+                    NotificationItem(notification)
+                }
             }
         }
 
@@ -61,9 +78,7 @@ fun Notifications(
                 BottomButton(
                     modifier = Modifier.weight(1f),
                     title = "CREATE",
-                    onClick = {
-                        navController.navigate(Route.NOTIFICATION_EDITOR)
-                    }
+                    onClick = onCreateClick
                 )
             },
             leftAction = {
@@ -79,7 +94,6 @@ fun Notifications(
                 )
             }
         )
-
     }
 }
 

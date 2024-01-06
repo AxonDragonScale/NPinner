@@ -30,9 +30,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.axondragonscale.npinner.model.Schedule
+import com.axondragonscale.npinner.model.ScheduleType
 import com.axondragonscale.npinner.ui.common.PickerButton
 import com.axondragonscale.npinner.ui.common.SegmentedToggleButton
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
+import java.time.LocalDate
+import java.time.LocalTime
 
 /**
  * Created by Ronak Harkhani on 29/04/23
@@ -40,10 +44,10 @@ import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 
 @Composable
 fun Scheduler(
-    scheduled: Boolean = false,
+    schedule: Schedule?,
+    onScheduleChange: (Schedule?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var scheduled by remember { mutableStateOf(scheduled) }
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
@@ -52,41 +56,43 @@ fun Scheduler(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            if (!scheduled) {
+            if (schedule != null) {
+                DateTimePicker(schedule)
+            } else {
                 Text(
                     modifier = Modifier.padding(4.dp),
                     text = "Schedule",
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-            } else {
-                DateTimePicker()
             }
 
             IconToggleButton(
                 modifier = Modifier.padding(12.dp),
-                checked = scheduled,
-                onCheckedChange = { scheduled = it }
+                checked = schedule != null,
+                onCheckedChange = {
+                    onScheduleChange(if (it) Schedule.newInstance() else null)
+                }
             ) {
                 Icon(
-                    imageVector = if (scheduled) Icons.Outlined.Delete else Icons.Filled.Add,
-                    contentDescription = if (scheduled) "Delete Schedule" else "Add Schedule",
+                    imageVector = if (schedule != null) Icons.Outlined.Delete else Icons.Filled.Add,
+                    contentDescription = if (schedule != null) "Delete Schedule" else "Add Schedule",
                     tint = MaterialTheme.colorScheme.primary,
                 )
             }
         }
 
-        if (scheduled) {
+        if (schedule != null) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                // TODO: Only Checkbox is clickable, Make whole row clickable
-                var checked by remember { mutableStateOf(true) }
                 Checkbox(
-                    checked = checked,
-                    onCheckedChange = { checked = it },
+                    checked = schedule.type != null,
+                    onCheckedChange = {
+                        onScheduleChange(schedule.copy(type = if (it) ScheduleType.DAY else null))
+                    },
                     colors = CheckboxDefaults.colors(
                         checkedColor = MaterialTheme.colorScheme.primary,
                         uncheckedColor = MaterialTheme.colorScheme.onBackground
@@ -96,7 +102,7 @@ fun Scheduler(
                 Text(
                     text = "REPEAT EVERY...",
                     style = MaterialTheme.typography.labelLarge,
-                    color = if (checked) MaterialTheme.colorScheme.primary
+                    color = if (schedule.type != null) MaterialTheme.colorScheme.primary
                             else MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Bold
                 )
@@ -105,9 +111,14 @@ fun Scheduler(
             Spacer(modifier = Modifier.height(8.dp))
 
             SegmentedToggleButton(
-                modifier = Modifier.padding(horizontal = 24.dp).padding(bottom = 24.dp),
+                modifier = Modifier
+                    .padding(horizontal = 24.dp)
+                    .padding(bottom = 24.dp),
                 items = listOf("DAY", "WEEK", "MONTH"),
-                onItemSelected = {}
+                onItemSelected = {
+                    onScheduleChange(schedule.copy(type = ScheduleType.fromOrdinal(it)))
+                },
+                enabled = schedule.type != null
             )
         }
 
@@ -117,6 +128,7 @@ fun Scheduler(
 
 @Composable
 fun DateTimePicker(
+    schedule: Schedule,
     modifier: Modifier = Modifier,
 ) {
     Row {
@@ -134,13 +146,17 @@ fun DateTimePicker(
     }
 }
 
+
 @Preview(name = "Light Mode", showBackground = true)
 @Preview(name = "Dark Mode", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun SchedulerPreview() {
+fun SchedulerNullPreview() {
     NPinnerTheme {
         Surface {
-            Scheduler(scheduled = true)
+            Scheduler(
+                schedule = null,
+                onScheduleChange = {},
+            )
         }
     }
 }
@@ -148,10 +164,35 @@ fun SchedulerPreview() {
 @Preview(name = "Light Mode", showBackground = true)
 @Preview(name = "Dark Mode", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun SchedulerFalsePreview() {
+fun SchedulerPreview() {
     NPinnerTheme {
         Surface {
-            Scheduler(scheduled = false)
+            Scheduler(
+                schedule = Schedule(
+                    date = LocalDate.now(),
+                    time = LocalTime.now(),
+                    type = ScheduleType.DAY,
+                ),
+                onScheduleChange = {},
+            )
+        }
+    }
+}
+
+@Preview(name = "Light Mode", showBackground = true)
+@Preview(name = "Dark Mode", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun SchedulerNoRepeatPreview() {
+    NPinnerTheme {
+        Surface {
+            Scheduler(
+                schedule = Schedule(
+                    date = LocalDate.now(),
+                    time = LocalTime.now(),
+                    type = null,
+                ),
+                onScheduleChange = {},
+            )
         }
     }
 }

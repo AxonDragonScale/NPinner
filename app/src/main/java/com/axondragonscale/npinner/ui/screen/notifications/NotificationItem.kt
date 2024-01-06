@@ -22,6 +22,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,9 +35,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.axondragonscale.npinner.R
+import com.axondragonscale.npinner.model.NPinnerNotification
+import com.axondragonscale.npinner.model.Schedule
+import com.axondragonscale.npinner.model.ScheduleType
 import com.axondragonscale.npinner.ui.common.Divider
 import com.axondragonscale.npinner.ui.common.IconLabel
 import com.axondragonscale.npinner.ui.theme.NPinnerTheme
+import java.time.LocalDate
+import java.time.LocalTime
 
 /**
  * Created by Ronak Harkhani on 27/04/23
@@ -42,7 +50,8 @@ import com.axondragonscale.npinner.ui.theme.NPinnerTheme
 
 @Composable
 fun NotificationItem(
-    modifier: Modifier = Modifier
+    notification: NPinnerNotification,
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
         Column(
@@ -55,24 +64,29 @@ fun NotificationItem(
 
             Text(
                 modifier = Modifier.padding(vertical = 8.dp),
-                text = "Notification Title",
+                text = notification.title,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.onBackground // TODO: Change with background
             )
 
-            Text(
-                text = stringResource(id = R.string.lorem_ipsum),
-                maxLines = 4,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8F)
-            )
+            notification.description.takeIf { !it.isNullOrBlank() }?.let { content ->
+                Text(
+                    text = content,
+                    maxLines = 4,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8F) // TODO: Change with background
+                )
+            }
 
-            ScheduleButton(
-                modifier = Modifier.padding(top = 16.dp),
-                onClick = { /*TODO*/ }
-            )
+            notification.schedule?.let {
+                ScheduleButton(
+                    modifier = Modifier.padding(top = 16.dp),
+                    schedule = notification.schedule,
+                    onClick = { /*TODO*/ },
+                )
+            }
         }
 
         IconToggleButton(
@@ -80,12 +94,12 @@ fun NotificationItem(
                 .size(48.dp)
                 .align(Alignment.TopEnd),
             checked = false,
-            onCheckedChange = {},
+            onCheckedChange = {}, // TODO: Pin and Unpin on click
             colors = IconButtonDefaults.iconToggleButtonColors(
                 contentColor = MaterialTheme.colorScheme.primary
             ),
         ) {
-            if (true) {
+            if (notification.isPinned) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_pin),
                     contentDescription = "Pin Notification",
@@ -104,7 +118,7 @@ fun NotificationItem(
 
 @Composable
 fun NotificationItemHeader(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
@@ -134,12 +148,13 @@ fun NotificationItemHeader(
 
 @Composable
 fun ScheduleButton(
+    schedule: Schedule,
     onClick: () -> Unit,
-    enabled: Boolean = true,
     tint: Color = MaterialTheme.colorScheme.primary,
     disabledTint: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.2F),
     modifier: Modifier = Modifier,
 ) {
+    val enabled by remember { mutableStateOf(true) } // TODO: Disable if scheduled time is in the past
     OutlinedButton(
         modifier = modifier.height(32.dp),
         onClick = onClick,
@@ -157,7 +172,7 @@ fun ScheduleButton(
 
         Text(
             modifier = Modifier.padding(start = 8.dp),
-            text = "APR 28 - 11:30 PM",
+            text = "${schedule.date.toString()} - ${schedule.time.toString()}", // TODO: date and time string formatting
             style = MaterialTheme.typography.labelSmall,
             color = if (enabled) tint else disabledTint,
             fontWeight = FontWeight.Bold,
@@ -170,6 +185,16 @@ fun ScheduleButton(
 @Composable
 fun NotificationItemPreview() {
     NPinnerTheme {
-        NotificationItem()
+        NotificationItem(
+            notification = NPinnerNotification(
+                id = "",
+                title = "Title",
+                description = stringResource(id = R.string.lorem_ipsum),
+                isPinned = true,
+                schedule = Schedule(LocalDate.now(), LocalTime.now(), ScheduleType.DAY),
+                createdAt = 1L,
+                updatedAt = 1L,
+            )
+        )
     }
 }

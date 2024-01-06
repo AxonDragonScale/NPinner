@@ -6,12 +6,12 @@ import com.axondragonscale.npinner.model.NPinnerNotification
 /**
  * Created by Ronak Harkhani on 30/04/23
  */
-fun NPinnerNotification.toEntity() = toEntity(this)
+fun NPinnerNotification.toEntity() = toNotificationEntity(this)
 fun List<NPinnerNotification>.toEntity() = this.map { it.toEntity() }
-private fun toEntity(model: NPinnerNotification) = NotificationEntity(
+private fun toNotificationEntity(model: NPinnerNotification) = NotificationEntity(
     id = model.id,
     title = model.title,
-    content = model.content,
+    description = model.description,
     isPinned = model.isPinned,
     schedule = model.schedule,
     createdAt = model.createdAt,
@@ -19,12 +19,12 @@ private fun toEntity(model: NPinnerNotification) = NotificationEntity(
     deletedAt = model.deletedAt,
 )
 
-fun NotificationEntity.toModel() = toModel(this)
+fun NotificationEntity.toModel() = toNPinnerNotification(this)
 fun List<NotificationEntity>.toModel() = this.map { it.toModel() }
-private fun toModel(entity: NotificationEntity) = NPinnerNotification(
+private fun toNPinnerNotification(entity: NotificationEntity) = NPinnerNotification(
     id = entity.id,
     title = entity.title,
-    content = entity.content,
+    description = entity.description,
     isPinned = entity.isPinned,
     schedule = entity.schedule,
     createdAt = entity.createdAt,

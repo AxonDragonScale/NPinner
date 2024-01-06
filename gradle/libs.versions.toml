@@ -16,15 +16,16 @@ activityCompose = "1.7.1"
 composeBom = "2023.04.01"
 coreKtx = "1.10.0"
 hilt = "2.45"
-hiltNavigationCompose = "1.0.0"
+hiltNavigationCompose = "1.1.0-alpha01"
 junit = "4.13.2"
-lifecycleRuntimeKtx = "2.6.1"
+androidxLifecycle = "2.6.1"
 room = "2.5.1"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
-androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
@@ -52,4 +53,5 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-material-icons-extended"]
 composeDebug = ["compose-ui-tooling", "compose-ui-test-manifest"]
 hilt = ["hilt-android", "hilt-navigation-compose"]
+lifecycle = ["lifecycle-runtime-ktx", "lifecycle-runtime-compose"]
 room = ["room-runtime", "room-ktx"]

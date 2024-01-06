@@ -27,18 +27,12 @@ fun NPinnerApp() {
 
         composable(
             route = Route.NOTIFICATION_EDITOR + "?${Route.ARG_ID}={${Route.ARG_ID}}",
-            arguments = listOf(navArgument("${Route.ARG_ID}") {
+            arguments = listOf(navArgument(Route.ARG_ID) {
                 type = NavType.StringType
                 nullable = true
             })
-        ) { navBackStackEntry ->
-            val args = navBackStackEntry.arguments
-            val notificationId = args?.getString(Route.ARG_ID)
-
-            NotificationEditor(
-                navController = navController,
-                notificationId = notificationId,
-            )
+        ) {
+            NotificationEditor(navController = navController)
         }
 
     }
