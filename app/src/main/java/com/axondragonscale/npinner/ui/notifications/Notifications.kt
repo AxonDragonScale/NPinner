@@ -24,6 +24,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -106,6 +109,8 @@ fun Notifications(
             }
         }
         
+        var showThemeSelectionBottomSheet by remember { mutableStateOf(false) }
+        var showAboutBottomSheet by remember { mutableStateOf(false) }
         BottomBar(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -120,16 +125,22 @@ fun Notifications(
             leftAction = {
                 IconActionButton(
                     icon = Icons.Outlined.DarkMode,
-                    onClick = { /*TODO*/ },
+                    onClick = { showThemeSelectionBottomSheet = true },
                 )
             },
             rightAction = {
                 IconActionButton(
                     icon = Icons.Outlined.Info,
-                    onClick = { /*TODO*/ }
+                    onClick = { showAboutBottomSheet = true }
                 )
             }
         )
+        
+        if (showThemeSelectionBottomSheet)
+            ThemeSelectionBottomSheet(onDismiss = { showThemeSelectionBottomSheet = false })
+        
+        if (showAboutBottomSheet)
+            AboutBottomSheet(onDismiss = { showAboutBottomSheet = false })
     }
 }
 
