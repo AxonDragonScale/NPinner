@@ -1,3 +1,6 @@
+import com.diffplug.gradle.spotless.SpotlessExtension
+import com.diffplug.gradle.spotless.SpotlessPlugin
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     // List all plugins here without applying them
@@ -6,4 +9,24 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.spotless) apply false
+}
+
+allprojects {
+    apply<SpotlessPlugin>()
+    extensions.configure<SpotlessExtension> {
+        kotlin {
+            target("**/*.kt")
+            targetExclude("**/build/**/*.kt")
+            ktlint(libs.versions.ktlint.get()).userData(mapOf("android" to "true"))
+        }
+        format("kts") {
+            target("**/*.kts")
+            targetExclude("**/build/**/*.kts")
+        }
+        format("xml") {
+            target("**/*.xml")
+            targetExclude("**/build/**/*.xml")
+        }
+    }
 }
