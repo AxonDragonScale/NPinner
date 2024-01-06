@@ -15,7 +15,7 @@ object ScheduleNotificationRequest {
     const val INPUT_DATA_KEY_ID = "notificationId"
 
     fun getRequest(id: String, schedule: Schedule): OneTimeWorkRequest {
-        val scheduledAt = schedule.asLocalDateTime()
+        val scheduledAt = schedule.asLocalDateTime
         val currentTime = LocalDateTime.now()
         val initialDelay = Duration.between(currentTime, scheduledAt)
 

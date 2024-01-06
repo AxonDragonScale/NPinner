@@ -23,7 +23,7 @@ class NPinnerNotificationScheduler @Inject constructor(
         with(notification) {
             schedule ?: return
 
-            val scheduledAt = schedule.asLocalDateTime()
+            val scheduledAt = schedule.asLocalDateTime
             val currentTime = LocalDateTime.now()
             if (scheduledAt.isBefore(currentTime)) return
 

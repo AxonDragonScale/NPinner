@@ -47,7 +47,7 @@ class ScheduleWorker @AssistedInject constructor(
         if (notification.schedule?.type == null) return
         val schedule = notification.schedule
 
-        val currentScheduledTime = schedule.asLocalDateTime()
+        val currentScheduledTime = schedule.asLocalDateTime
         val newScheduleTime = when (schedule.type!!) {
             ScheduleType.DAY -> currentScheduledTime.plusDays(1)
             ScheduleType.WEEK -> currentScheduledTime.plusWeeks(1)

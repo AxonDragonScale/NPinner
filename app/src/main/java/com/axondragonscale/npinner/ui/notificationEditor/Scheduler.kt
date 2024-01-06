@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.content.res.Configuration
 import android.widget.DatePicker
 import android.widget.TimePicker
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,9 +14,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Divider
@@ -31,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.axondragonscale.npinner.model.Schedule
 import com.axondragonscale.npinner.model.ScheduleType
 import com.axondragonscale.npinner.ui.common.PickerButton
@@ -86,9 +90,11 @@ fun Scheduler(
             }
         }
 
-        // TODO: Show Warning if scheduled date is in the past
-
         if (schedule != null) {
+            if (!schedule.isFuture) {
+                InvalidScheduleWarning()
+            }
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -121,7 +127,7 @@ fun Scheduler(
                 modifier = Modifier
                     .padding(horizontal = 24.dp)
                     .padding(bottom = 24.dp),
-                items = listOf("DAY", "WEEK", "MONTH"),
+                items = ScheduleType.stringValues,
                 onItemSelected = {
                     onScheduleChange(schedule.copy(type = ScheduleType.fromOrdinal(it)))
                 },
@@ -130,6 +136,37 @@ fun Scheduler(
         }
 
         Divider()
+    }
+}
+
+@Composable
+fun InvalidScheduleWarning() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp)
+            .padding(bottom = 12.dp)
+            .background(
+                color = MaterialTheme.colorScheme.error,
+                shape = RoundedCornerShape(8.dp)
+            )
+            .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(
+            imageVector = Icons.Outlined.Info,
+            contentDescription = "Warning",
+            tint = MaterialTheme.colorScheme.onError
+        )
+
+        Text(
+            modifier = Modifier.padding(start = 12.dp),
+            text = "This schedule is in the past. Please delete or edit your schedule.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onError,
+            fontWeight = FontWeight.Bold,
+            letterSpacing = 0.sp,
+        )
     }
 }
 

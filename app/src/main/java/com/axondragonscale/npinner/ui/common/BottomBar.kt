@@ -41,7 +41,7 @@ fun BottomBar(
     mainAction: @Composable RowScope.() -> Unit,
     leftAction: @Composable RowScope.() -> Unit = { Spacer(modifier = Modifier.width(48.dp)) },
     rightAction: @Composable RowScope.() -> Unit = { Spacer(modifier = Modifier.width(48.dp)) },
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
@@ -73,7 +73,7 @@ fun BottomButton(
     title: String,
     onClick: () -> Unit,
     enabled: Boolean = true,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Button(
         onClick = onClick,
@@ -93,7 +93,7 @@ fun IconActionButton(
     icon: ImageVector,
     onClick: () -> Unit,
     iconDescription: String? = null,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     IconButton(
         onClick = onClick,

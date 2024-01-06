@@ -2,6 +2,7 @@ package com.axondragonscale.npinner.model
 
 import androidx.annotation.Keep
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 /**
@@ -27,5 +28,8 @@ data class Schedule(
 
     }
 
-    fun asLocalDateTime() = date.atTime(time)
+    val asLocalDateTime: LocalDateTime by lazy { date.atTime(time) }
+
+    val isFuture by lazy { type != null || asLocalDateTime.isAfter(LocalDateTime.now()) }
+
 }
