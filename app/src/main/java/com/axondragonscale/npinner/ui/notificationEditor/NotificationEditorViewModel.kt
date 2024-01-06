@@ -59,11 +59,14 @@ class NotificationEditorViewModel @Inject constructor(
         }
         launch { repository.upsert(notification) }
 
-        if (createNew) {
-            if (notification.isPinned)
-                notificationManager.postNotification(notification)
+        // Post Notification or Update existing
+        if (notification.isPinned)
+            notificationManager.postNotification(notification)
 
-            // TODO: Schedule Notification otherwise
+        if (notification.schedule != null) {
+            // TODO: Schedule notification or update existine schedule
+        } else {
+            // TODO: Remove schedule is exists
         }
     }
 
