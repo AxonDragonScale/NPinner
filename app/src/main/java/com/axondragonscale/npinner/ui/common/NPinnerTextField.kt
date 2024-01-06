@@ -117,7 +117,7 @@ fun UnderlinedDecorationBox(
                     enabled = true,
                     isError = false,
                     interactionSource = interactionSource,
-                    colors = TextFieldDefaults.textFieldColors()
+                    colors = TextFieldDefaults.colors()
                 )
         )
 
