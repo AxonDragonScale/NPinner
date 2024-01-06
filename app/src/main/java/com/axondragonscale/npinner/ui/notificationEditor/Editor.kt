@@ -1,7 +1,6 @@
 package com.axondragonscale.npinner.ui.notificationEditor
 
 import android.content.res.Configuration
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height

@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.detekt)
 }
 
 val keystorePropertiesFIS = FileInputStream(rootProject.file("keystore/keystore.properties"))
@@ -98,4 +99,9 @@ dependencies {
 
     testImplementation(libs.junit)
     
+}
+
+detekt {
+    parallel = true
+    config = files("../config/detekt/detekt.yml")
 }

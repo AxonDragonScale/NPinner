@@ -1,16 +1,12 @@
 package com.axondragonscale.npinner.core
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Notification
 import android.content.Context
-import android.content.pm.PackageManager
-import android.os.Build
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.BigTextStyle
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import com.axondragonscale.npinner.R
 import com.axondragonscale.npinner.model.NPinnerNotification
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -60,16 +56,6 @@ class NPinnerNotificationManager @Inject constructor(
             .setOngoing(true)
             .build()
     }
-
-    private fun hasNotificationPermission() =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.POST_NOTIFICATIONS
-            ) == PackageManager.PERMISSION_GRANTED
-        } else {
-            true
-        }
 
     private fun createNotificationChannel() {
         // Notification Channels are available since Oreo

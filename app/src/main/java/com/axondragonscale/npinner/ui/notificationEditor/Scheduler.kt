@@ -188,7 +188,7 @@ fun DateTimePicker(
     onScheduleChange: (Schedule?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Row {
+    Row(modifier = modifier) {
         var showDatePicker by remember { mutableStateOf(false) }
         PickerButton(
             text = schedule.date.formatted,
