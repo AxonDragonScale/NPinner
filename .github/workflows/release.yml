@@ -2,6 +2,14 @@ name: release
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: The release version
+        required: true
+        type: string
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -47,6 +55,15 @@ jobs:
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
         env:
           BUILD_TOOLS_VERSION: "34.0.0"
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "v${{ github.event.inputs.version }}"
+          tag_name: "v${{ github.event.inputs.version }}"
+          files: |
+            ${{steps.sign_aab.outputs.signedReleaseFile}}
+            ${{steps.sign_apk.outputs.signedReleaseFile}}
 
       - uses: actions/upload-artifact@v4
         with:
