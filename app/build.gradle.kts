@@ -14,7 +14,7 @@ plugins {
 android {
     namespace = libs.versions.applicationId.get()
     compileSdk = libs.versions.compileSdk.get().toInt()
-    
+
     defaultConfig {
         applicationId = libs.versions.applicationId.get()
         minSdk = libs.versions.minSdk.get().toInt()
@@ -51,6 +51,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
@@ -86,7 +87,7 @@ dependencies {
 
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)
-    
+
     implementation(libs.accompanist.permissions)
 
     testImplementation(libs.junit)
@@ -95,7 +96,7 @@ dependencies {
 detekt {
     parallel = true
     config.setFrom(files("../config/detekt/detekt.yml"))
-    
+
     dependencies {
         detektPlugins(libs.detekt.formatting)
     }

@@ -77,6 +77,12 @@
             tools:node="remove">
         </provider>
 
+        <!-- Show Firebase Perf Logs in Logcat-->
+        <meta-data
+            android:name="firebase_performance_logcat_enabled"
+            android:value="true">
+        </meta-data>
+
     </application>
 
 </manifest>
