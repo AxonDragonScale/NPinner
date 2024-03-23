@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: The release version
+        description: version (Release Version | Match AppVersion)
         required: true
         type: string
 
