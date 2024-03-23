@@ -25,5 +25,34 @@ jobs:
       - name: Build the AAB
         run: ./gradlew bundleRelease
 
+      - name: Sign the AAB
+        id: sign_aab
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY_BASE64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+
+      - name: Build the APK
+        run: ./gradlew assembleRelease
+
+      - name: Sign the APK
+        id: sign_apk
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY_BASE64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Release AAB and APK
+          path: |
+            ${{steps.sign_aab.outputs.signedReleaseFile}}
+            ${{steps.sign_apk.outputs.signedReleaseFile}}
 
 
