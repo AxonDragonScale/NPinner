@@ -1,5 +1,3 @@
-import java.io.FileInputStream
-import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -9,9 +7,6 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
 }
-
-val keystorePropertiesFIS = FileInputStream(rootProject.file("keystore/keystore.properties"))
-val keystoreProperties = Properties().apply { load(keystorePropertiesFIS) }
 
 android {
     namespace = libs.versions.applicationId.get()
