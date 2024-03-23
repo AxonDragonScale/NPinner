@@ -6,6 +6,9 @@ kotlin = "1.9.21"
 ksp = "1.9.21-1.0.15"
 spotless = "6.18.0"
 ktlint = "0.48.1"
+googleServices = "4.4.1"
+firebaseCrashlytics = "2.9.9"
+firebasePerf = "1.4.2"
 
 # Build Versions
 applicationId = "com.axondragonscale.npinner"
@@ -13,8 +16,8 @@ compileSdk = "34"
 minSdk = "26"
 targetSdk = "34"
 composeCompiler = "1.5.7"
-versionCode = "100"
-versionName = "1.0.0"
+versionCode = "102"
+versionName = "1.0.2"
 
 # Dependency Versions
 accompanist = "0.32.0"
@@ -23,6 +26,7 @@ androidxLifecycle = "2.6.2"
 composeBom = "2023.10.01"
 coreKtx = "1.12.0"
 datastorePrefs = "1.0.0"
+firebaseBom = "32.8.0"
 hilt = "2.48"
 hiltWork = "1.1.0"
 hiltNavigationCompose = "1.1.0"
@@ -51,6 +55,10 @@ compose-material3 = { module = "androidx.compose.material3:material3" }
 compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+firebase-perf = { module = "com.google.firebase:firebase-perf" }
 junit = { module = "junit:junit", version.ref = "junit" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
@@ -65,6 +73,9 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlytics" }
+firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerf" }
 
 [bundles]
 compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-material-icons-extended"]
@@ -73,3 +84,4 @@ hilt = ["hilt-android", "hilt-navigation-compose", "hilt-work"]
 hiltKapt = ["hilt-android-compiler", "hilt-work-compiler"]
 lifecycle = ["lifecycle-runtime-ktx", "lifecycle-runtime-compose"]
 room = ["room-runtime", "room-ktx"]
+firebase = ["firebase-analytics", "firebase-crashlytics", "firebase-perf"]
