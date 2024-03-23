@@ -9,7 +9,7 @@ on:
         type: string
 
 permissions:
-  contents: write
+  write-all
 
 jobs:
   build:
@@ -55,6 +55,17 @@ jobs:
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
         env:
           BUILD_TOOLS_VERSION: "34.0.0"
+
+      - name: Create Tag
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/v${{ github.event.inputs.version }}",
+              sha: context.sha
+            })
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
