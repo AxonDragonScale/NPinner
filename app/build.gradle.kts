@@ -29,19 +29,10 @@ android {
             useSupportLibrary = true
         }
     }
-    
-    signingConfigs {
-        create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = file(keystoreProperties["storeFile"] as String)
-            storePassword = keystoreProperties["storePassword"] as String
-        }
-    }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = signingConfigs.getByName("debug")
             isDebuggable = false
             isMinifyEnabled = true
             proguardFiles(

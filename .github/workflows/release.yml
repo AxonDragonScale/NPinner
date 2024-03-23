@@ -1,0 +1,27 @@
+name: release
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build:
+    name: Generate AAB and APK for Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Build the AAB
+        run: ./gradlew bundleRelease
+
+
+
