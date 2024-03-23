@@ -8,8 +8,7 @@ on:
         required: true
         type: string
 
-permissions:
-  write-all
+permissions: write-all
 
 jobs:
   build:
