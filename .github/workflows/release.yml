@@ -3,10 +3,6 @@ name: release
 on:
   workflow_dispatch:
 
-  push:
-    tags:
-      - v*
-
 jobs:
   build:
     name: Generate AAB and APK for Release
@@ -34,6 +30,8 @@ jobs:
           alias: ${{ secrets.KEY_ALIAS }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
 
       - name: Build the APK
         run: ./gradlew assembleRelease
@@ -47,6 +45,8 @@ jobs:
           alias: ${{ secrets.KEY_ALIAS }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
 
       - uses: actions/upload-artifact@v4
         with:
