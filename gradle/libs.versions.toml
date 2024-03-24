@@ -66,11 +66,10 @@ work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "work"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlytics" }
@@ -80,7 +79,7 @@ firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "fireb
 compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-material-icons-extended"]
 composeDebug = ["compose-ui-tooling", "compose-ui-test-manifest"]
 hilt = ["hilt-android", "hilt-navigation-compose", "hilt-work"]
-hiltKapt = ["hilt-android-compiler", "hilt-work-compiler"]
+hiltKsp = ["hilt-android-compiler", "hilt-work-compiler"]
 lifecycle = ["lifecycle-runtime-ktx", "lifecycle-runtime-compose"]
 room = ["room-runtime", "room-ktx"]
 firebase = ["firebase-analytics", "firebase-crashlytics", "firebase-perf"]

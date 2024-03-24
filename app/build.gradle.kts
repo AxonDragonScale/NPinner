@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt.android)
-    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.detekt)
     alias(libs.plugins.google.services)
@@ -83,7 +82,7 @@ dependencies {
     implementation(libs.bundles.firebase)
 
     implementation(libs.bundles.hilt)
-    kapt(libs.bundles.hiltKapt)
+    ksp(libs.bundles.hiltKsp)
 
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)
