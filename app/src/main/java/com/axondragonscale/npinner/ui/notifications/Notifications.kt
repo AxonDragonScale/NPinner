@@ -14,15 +14,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material3.DismissDirection
-import androidx.compose.material3.DismissValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.SwipeToDismiss
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberDismissState
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -160,22 +159,22 @@ fun SwipeableNotificationItem(
     onRemoveSchedule: (NPinnerNotification) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val dismissState = rememberDismissState(
+    val swipeToDismissBoxState = rememberSwipeToDismissBoxState(
         confirmValueChange = {
-            if (it != DismissValue.Default) onNotificationDelete(notification)
+            if (it != SwipeToDismissBoxValue.Settled) onNotificationDelete(notification)
             true
         },
         positionalThreshold = { it * 0.5F },
     )
-    
-    SwipeToDismiss(
+
+    SwipeToDismissBox(
         modifier = modifier,
-        state = dismissState,
-        background = {
-            val alignment = when (dismissState.dismissDirection) {
-                DismissDirection.StartToEnd -> Alignment.CenterStart
-                DismissDirection.EndToStart -> Alignment.CenterEnd
-                else -> return@SwipeToDismiss
+        state = swipeToDismissBoxState,
+        backgroundContent = {
+            val alignment = when (swipeToDismissBoxState.dismissDirection) {
+                SwipeToDismissBoxValue.StartToEnd -> Alignment.CenterStart
+                SwipeToDismissBoxValue.EndToStart -> Alignment.CenterEnd
+                else -> return@SwipeToDismissBox
             }
             Box(
                 modifier = Modifier
@@ -193,15 +192,14 @@ fun SwipeableNotificationItem(
                 )
             }
         },
-        dismissContent = {
-            NotificationItem(
-                notification = notification,
-                onClick = { onNotificationClick(notification.id) },
-                onPinClick = { onPinClick(notification.id, it) },
-                onRemoveSchedule = { onRemoveSchedule(notification) }
-            )
-        }
-    )
+    ) {
+        NotificationItem(
+            notification = notification,
+            onClick = { onNotificationClick(notification.id) },
+            onPinClick = { onPinClick(notification.id, it) },
+            onRemoveSchedule = { onRemoveSchedule(notification) }
+        )
+    }
 }
 
 @Composable

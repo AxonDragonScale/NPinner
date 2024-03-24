@@ -1,9 +1,9 @@
 [versions]
 # Plugin Verions
-androidGradlePlugin = "8.2.0"
+androidGradlePlugin = "8.3.1"
 detekt = "1.23.0"
-kotlin = "1.9.21"
-ksp = "1.9.21-1.0.15"
+kotlin = "1.9.23"
+ksp = "1.9.23-1.0.19"
 spotless = "6.18.0"
 ktlint = "0.48.1"
 googleServices = "4.4.1"
@@ -15,21 +15,20 @@ applicationId = "com.axondragonscale.npinner"
 compileSdk = "34"
 minSdk = "26"
 targetSdk = "34"
-composeCompiler = "1.5.7"
+composeCompiler = "1.5.11"
 versionCode = "110"
 versionName = "1.1.0"
 
 # Dependency Versions
-accompanist = "0.32.0"
+accompanist = "0.34.0"
 activityCompose = "1.8.2"
-androidxLifecycle = "2.6.2"
-composeBom = "2023.10.01"
+androidxLifecycle = "2.7.0"
+composeBom = "2024.03.00"
 coreKtx = "1.12.0"
 datastorePrefs = "1.0.0"
 firebaseBom = "32.8.0"
-hilt = "2.48"
-hiltWork = "1.1.0"
-hiltNavigationCompose = "1.1.0"
+daggerHilt = "2.50"
+androidxHilt = "1.2.0"
 junit = "4.13.2"
 room = "2.6.1"
 work = "2.9.0"
@@ -42,11 +41,11 @@ datastore-prefs = { module = "androidx.datastore:datastore-preferences", version
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" } # Detekt Plugin
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWork" }
-hilt-work-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltWork" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "daggerHilt" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "daggerHilt" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidxHilt" }
+hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "androidxHilt" }
+hilt-work-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidxHilt" }
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
@@ -68,7 +67,7 @@ work-runtime = { module = "androidx.work:work-runtime-ktx", version.ref = "work"
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "daggerHilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
