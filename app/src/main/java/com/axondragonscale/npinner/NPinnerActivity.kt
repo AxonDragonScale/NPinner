@@ -65,11 +65,3 @@ fun isDarkMode(darkModeConfig: DarkModeConfig) = when (darkModeConfig) {
     DarkModeConfig.ON -> true
     DarkModeConfig.OFF -> false
 }
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NPinnerTheme {
-        NPinnerApp()
-    }
-}
