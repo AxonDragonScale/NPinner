@@ -18,7 +18,9 @@ import com.axondragonscale.npinner.data.entity.NotificationEntity
 @Database(
     entities = [NotificationEntity::class],
     views = [],
-    version = 1
+    version = 1,
+    exportSchema = true,
+    autoMigrations = [],
 )
 @TypeConverters(
     LocalDateTypeConverter::class,
