@@ -1,6 +1,6 @@
 [versions]
 # Plugin Verions
-androidGradlePlugin = "8.7.0"
+androidGradlePlugin = "8.7.1"
 detekt = "1.23.6"
 kotlin = "2.0.20"
 ksp = "2.0.20-1.0.25"
@@ -20,13 +20,14 @@ versionCode = "110"
 versionName = "1.1.0"
 
 # Dependency Versions
-accompanist = "0.34.0"
-activityCompose = "1.9.2"
+accompanist = "0.36.0"
+activityCompose = "1.9.3"
 androidxLifecycle = "2.8.6"
-composeBom = "2024.09.03"
+androidxNavigation = "2.8.3"
+composeBom = "2024.10.00"
 coreKtx = "1.13.1"
 datastorePrefs = "1.1.1"
-firebaseBom = "33.4.0"
+firebaseBom = "33.5.1"
 daggerHilt = "2.52"
 androidxHilt = "1.2.0"
 junit = "4.13.2"
@@ -54,6 +55,7 @@ compose-material3 = { module = "androidx.compose.material3:material3" }
 compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
@@ -78,7 +80,7 @@ firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "
 firebase-perf = { id = "com.google.firebase.firebase-perf", version.ref = "firebasePerf" }
 
 [bundles]
-compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-material-icons-extended"]
+compose = ["compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material3", "compose-material-icons-extended", "compose-navigation"]
 composeDebug = ["compose-ui-tooling", "compose-ui-test-manifest"]
 hilt = ["hilt-android", "hilt-navigation-compose", "hilt-work"]
 hiltKsp = ["hilt-android-compiler", "hilt-work-compiler"]

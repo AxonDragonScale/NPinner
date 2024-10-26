@@ -1,5 +1,6 @@
 package com.axondragonscale.npinner.ui
 
+import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -15,7 +16,11 @@ fun NPinnerApp() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Destination.Notifications.route
+        startDestination = Destination.Notifications.route,
+        enterTransition = { slideIntoContainer(SlideDirection.Up) },
+        exitTransition = { slideOutOfContainer(SlideDirection.Up) },
+        popEnterTransition = { slideIntoContainer(SlideDirection.Down) },
+        popExitTransition = { slideOutOfContainer(SlideDirection.Down) }
     ) {
 
         notificationsGraph(navController)
