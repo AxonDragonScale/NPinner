@@ -15,7 +15,6 @@ applicationId = "com.axondragonscale.npinner"
 compileSdk = "34"
 minSdk = "26"
 targetSdk = "34"
-composeCompiler = "1.5.11"
 versionCode = "110"
 versionName = "1.1.0"
 

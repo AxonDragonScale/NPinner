@@ -91,6 +91,7 @@ fun DeveloperInfo() {
 
         Column {
             Text(
+                modifier = Modifier.padding(bottom = 4.dp),
                 text = "Developer",
                 style = MaterialTheme.typography.labelMedium,
             )
@@ -126,6 +127,7 @@ fun GithubInfo() {
 
         Column {
             Text(
+                modifier = Modifier.padding(bottom = 4.dp),
                 text = "Github",
                 style = MaterialTheme.typography.labelMedium,
             )

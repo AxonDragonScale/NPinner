@@ -48,7 +48,7 @@ fun Editor(
         Spacer(modifier = Modifier.height(24.dp))
 
         val focusRequester = remember { FocusRequester() }
-        LaunchedEffect(Unit) { focusRequester.requestFocus() }
+        LaunchedEffect(Unit) { if (title.isBlank()) focusRequester.requestFocus() }
         NPinnerTextField(
             modifier = Modifier.focusRequester(focusRequester),
             value = title,
