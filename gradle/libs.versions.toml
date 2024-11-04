@@ -1,6 +1,6 @@
 [versions]
 # Plugin Verions
-androidGradlePlugin = "8.7.1"
+androidGradlePlugin = "8.7.2"
 detekt = "1.23.6"
 kotlin = "2.0.20"
 ksp = "2.0.20-1.0.25"
